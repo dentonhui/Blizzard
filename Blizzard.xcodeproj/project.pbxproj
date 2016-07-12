@@ -131,9 +131,9 @@
 				ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */,
 				ADDCA5911D34645200ACBCCD /* GameViewController.swift */,
 				ADDCA5931D34645200ACBCCD /* Main.storyboard */,
-				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
+				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
 			);
 			path = Blizzard;
 			sourceTree = "<group>";
