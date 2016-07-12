@@ -16,6 +16,7 @@
 		ADDCA59A1D34645200ACBCCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */; };
 		ADDCA5A51D34645200ACBCCD /* BlizzardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5A41D34645200ACBCCD /* BlizzardTests.swift */; };
 		ADDCA5B01D34645200ACBCCD /* BlizzardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5AF1D34645200ACBCCD /* BlizzardUITests.swift */; };
+		ADDCA5BE1D34648700ACBCCD /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5BD1D34648700ACBCCD /* Character.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		ADDCA5AB1D34645200ACBCCD /* BlizzardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlizzardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDCA5AF1D34645200ACBCCD /* BlizzardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardUITests.swift; sourceTree = "<group>"; };
 		ADDCA5B11D34645200ACBCCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADDCA5BD1D34648700ACBCCD /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
+				ADDCA5BD1D34648700ACBCCD /* Character.swift */,
 			);
 			path = Blizzard;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				ADDCA5901D34645200ACBCCD /* GameScene.swift in Sources */,
 				ADDCA5921D34645200ACBCCD /* GameViewController.swift in Sources */,
 				ADDCA58C1D34645200ACBCCD /* AppDelegate.swift in Sources */,
+				ADDCA5BE1D34648700ACBCCD /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
