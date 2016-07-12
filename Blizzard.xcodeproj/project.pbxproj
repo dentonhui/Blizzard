@@ -17,6 +17,13 @@
 		ADDCA5A51D34645200ACBCCD /* BlizzardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5A41D34645200ACBCCD /* BlizzardTests.swift */; };
 		ADDCA5B01D34645200ACBCCD /* BlizzardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5AF1D34645200ACBCCD /* BlizzardUITests.swift */; };
 		ADDCA5BE1D34648700ACBCCD /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5BD1D34648700ACBCCD /* Character.swift */; };
+		ADDCA5C01D358FE200ACBCCD /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */; };
+		ADDCA5C21D35903A00ACBCCD /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5C11D35903A00ACBCCD /* MSButtonNode.swift */; };
+		ADDCA5C41D3590AF00ACBCCD /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */; };
+		ADDCA5C81D35963A00ACBCCD /* GameMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C71D35963A00ACBCCD /* GameMenu.sks */; };
+		ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */; };
+		ADDCA5CC1D3596BE00ACBCCD /* TownMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */; };
+		ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +60,13 @@
 		ADDCA5AF1D34645200ACBCCD /* BlizzardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlizzardUITests.swift; sourceTree = "<group>"; };
 		ADDCA5B11D34645200ACBCCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADDCA5BD1D34648700ACBCCD /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		ADDCA5C11D35903A00ACBCCD /* MSButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
+		ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
+		ADDCA5C71D35963A00ACBCCD /* GameMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameMenu.sks; sourceTree = "<group>"; };
+		ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InventoryMenu.sks; sourceTree = "<group>"; };
+		ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TownMenu.sks; sourceTree = "<group>"; };
+		ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,15 +117,19 @@
 		ADDCA58A1D34645200ACBCCD /* Blizzard */ = {
 			isa = PBXGroup;
 			children = (
+				ADDCA5C61D35961A00ACBCCD /* Menus */,
+				ADDCA5C51D35915F00ACBCCD /* Objects */,
+				ADDCA5C11D35903A00ACBCCD /* MSButtonNode.swift */,
 				ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */,
 				ADDCA58D1D34645200ACBCCD /* GameScene.sks */,
 				ADDCA58F1D34645200ACBCCD /* GameScene.swift */,
+				ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */,
+				ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */,
 				ADDCA5911D34645200ACBCCD /* GameViewController.swift */,
 				ADDCA5931D34645200ACBCCD /* Main.storyboard */,
 				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
-				ADDCA5BD1D34648700ACBCCD /* Character.swift */,
 			);
 			path = Blizzard;
 			sourceTree = "<group>";
@@ -132,6 +150,25 @@
 				ADDCA5B11D34645200ACBCCD /* Info.plist */,
 			);
 			path = BlizzardUITests;
+			sourceTree = "<group>";
+		};
+		ADDCA5C51D35915F00ACBCCD /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				ADDCA5BD1D34648700ACBCCD /* Character.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		ADDCA5C61D35961A00ACBCCD /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				ADDCA5C71D35963A00ACBCCD /* GameMenu.sks */,
+				ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */,
+				ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */,
+				ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */,
+			);
+			name = Menus;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,9 +275,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADDCA5CC1D3596BE00ACBCCD /* TownMenu.sks in Resources */,
 				ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */,
+				ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */,
 				ADDCA59A1D34645200ACBCCD /* LaunchScreen.storyboard in Resources */,
+				ADDCA5C41D3590AF00ACBCCD /* MainScene.sks in Resources */,
 				ADDCA5971D34645200ACBCCD /* Assets.xcassets in Resources */,
+				ADDCA5C81D35963A00ACBCCD /* GameMenu.sks in Resources */,
 				ADDCA5951D34645200ACBCCD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,9 +307,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */,
 				ADDCA5901D34645200ACBCCD /* GameScene.swift in Sources */,
 				ADDCA5921D34645200ACBCCD /* GameViewController.swift in Sources */,
 				ADDCA58C1D34645200ACBCCD /* AppDelegate.swift in Sources */,
+				ADDCA5C21D35903A00ACBCCD /* MSButtonNode.swift in Sources */,
+				ADDCA5C01D358FE200ACBCCD /* MainScene.swift in Sources */,
 				ADDCA5BE1D34648700ACBCCD /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
