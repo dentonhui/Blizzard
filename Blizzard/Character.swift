@@ -12,6 +12,22 @@ import SpriteKit
 class Character: SKSpriteNode {
     
     var moveSpeed: CGFloat = 100
+    enum Orientation {
+        case Right, Left
+    }
+    var direction = Orientation.Right {
+        
+        // Switches character sprite's visual orientation whenever the orientaiton in code changes
+        didSet {
+            if direction == .Right {
+                self.xScale = 1
+            }
+            else {
+                self.xScale = -1
+            }
+            
+        }
+    }
     
 //    init(filename: String) {
 //        let texture = SKTexture(imageNamed: filename)
@@ -32,6 +48,20 @@ class Character: SKSpriteNode {
         
         let duration = NSTimeInterval(distance / self.moveSpeed)
         let move = SKAction.moveTo(location, duration: duration)
+        
+        // A switch case to change character orientation if it heads in a direction different from their current orientation
+        switch  direction {
+        case .Right:
+            if location.x < self.position.x {
+                direction = .Left
+            }
+            
+        case .Left:
+            if location.x > self.position.x {
+                direction = .Right
+            }
+            
+        }
         
         self.runAction(move)
     }

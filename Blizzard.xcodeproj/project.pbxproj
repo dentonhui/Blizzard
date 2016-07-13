@@ -127,8 +127,6 @@
 				ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */,
 				ADDCA58D1D34645200ACBCCD /* GameScene.sks */,
 				ADDCA58F1D34645200ACBCCD /* GameScene.swift */,
-				ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */,
-				ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */,
 				ADDCA5911D34645200ACBCCD /* GameViewController.swift */,
 				ADDCA5931D34645200ACBCCD /* Main.storyboard */,
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
@@ -173,6 +171,8 @@
 				ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */,
 				ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */,
 				ADDCA5CF1D35B0A000ACBCCD /* TownMenu.swift */,
+				ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */,
+				ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */,
 			);
 			name = Menus;
 			sourceTree = "<group>";

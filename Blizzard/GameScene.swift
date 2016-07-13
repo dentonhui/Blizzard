@@ -21,7 +21,6 @@ class GameScene: SKScene {
 //        
 //        self.addChild(myLabel)
         hero = self.childNodeWithName("hero") as! Character
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
