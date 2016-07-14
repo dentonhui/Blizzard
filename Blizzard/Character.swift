@@ -25,7 +25,6 @@ class Character: SKSpriteNode {
             else {
                 self.xScale = -1
             }
-            
         }
     }
     

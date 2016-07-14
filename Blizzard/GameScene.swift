@@ -12,6 +12,8 @@ class GameScene: SKScene {
     
     var hero: Character!
     let cam = SKCameraNode()
+    var currentMap: Map!
+    var mapGrid: [Map] = []
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -22,7 +24,9 @@ class GameScene: SKScene {
 //        
 //        self.addChild(myLabel)
         hero = self.childNodeWithName("hero") as! Character
+        hero.position = CGPoint(x: 325*3, y: 325*3)
         self.camera = cam
+        hero.addChild(self.camera!)
         
         let map = Map()
         map.zPosition = -1
@@ -36,6 +40,12 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.locationInNode(self)
             hero.move(location)
+            if hero.direction == .Right {
+                self.camera?.xScale = 1
+            }
+            else {
+                self.camera?.xScale = -1
+            }
             
         }
         
@@ -44,6 +54,10 @@ class GameScene: SKScene {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         
-        cam.position = hero.position
+        // Moves camera to hero's position
+    }
+    
+    func addMap (currentMap: Map) {
+        
     }
 }
