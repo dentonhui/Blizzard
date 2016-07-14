@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    var hero: Character!
+    var hero = Character()
     let cam = SKCameraNode()
     var currentMap: Map!
     var mapGrid: [Map] = []
@@ -23,8 +23,8 @@ class GameScene: SKScene {
 //        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
 //        
 //        self.addChild(myLabel)
-        hero = self.childNodeWithName("hero") as! Character
         hero.position = CGPoint(x: 325*3, y: 325*3)
+        self.addChild(hero)
         self.camera = cam
         hero.addChild(self.camera!)
         

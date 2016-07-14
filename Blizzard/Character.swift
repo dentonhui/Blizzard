@@ -28,14 +28,14 @@ class Character: SKSpriteNode {
         }
     }
     
-//    init(filename: String) {
-//        let texture = SKTexture(imageNamed: filename)
-//        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    init() {
+        let texture = SKTexture(imageNamed: "man")
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     func move (location: CGPoint) {
     // A function to move the hero character at a constant speed
