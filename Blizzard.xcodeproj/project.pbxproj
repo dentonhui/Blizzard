@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD0FC87E1D38059E002DCE74 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0FC87D1D38059E002DCE74 /* Map.swift */; };
 		ADDCA58C1D34645200ACBCCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */; };
 		ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA58D1D34645200ACBCCD /* GameScene.sks */; };
 		ADDCA5901D34645200ACBCCD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA58F1D34645200ACBCCD /* GameScene.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD0FC87D1D38059E002DCE74 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		ADDCA5881D34645200ACBCCD /* Blizzard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blizzard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADDCA58D1D34645200ACBCCD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				ADDCA5BD1D34648700ACBCCD /* Character.swift */,
+				AD0FC87D1D38059E002DCE74 /* Map.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD0FC87E1D38059E002DCE74 /* Map.swift in Sources */,
 				ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */,
 				ADDCA5901D34645200ACBCCD /* GameScene.swift in Sources */,
 				ADDCA5921D34645200ACBCCD /* GameViewController.swift in Sources */,
@@ -550,6 +554,7 @@
 				ADDCA5B61D34645200ACBCCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ADDCA5B71D34645200ACBCCD /* Build configuration list for PBXNativeTarget "BlizzardTests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +563,7 @@
 				ADDCA5B91D34645200ACBCCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ADDCA5BA1D34645200ACBCCD /* Build configuration list for PBXNativeTarget "BlizzardUITests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +572,7 @@
 				ADDCA5BC1D34645200ACBCCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

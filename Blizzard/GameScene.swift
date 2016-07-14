@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene {
     
     var hero: Character!
+    let cam = SKCameraNode()
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -21,6 +22,12 @@ class GameScene: SKScene {
 //        
 //        self.addChild(myLabel)
         hero = self.childNodeWithName("hero") as! Character
+        self.camera = cam
+        
+        let map = Map()
+        map.zPosition = -1
+        map.position = hero.position
+        self.addChild(map)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -31,9 +38,12 @@ class GameScene: SKScene {
             hero.move(location)
             
         }
+        
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        cam.position = hero.position
     }
 }
