@@ -11,7 +11,7 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    var moveSpeed: CGFloat = 100
+    var moveSpeed: CGFloat = 200
     enum Orientation {
         case Right, Left
     }
