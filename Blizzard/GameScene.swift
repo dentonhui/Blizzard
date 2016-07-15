@@ -86,13 +86,30 @@ class GameScene: SKScene {
             print("added \(currentMap.number + 1)")
         }
         
+        // Removes the map that is 2 maps to the left
+        if currentMap.number > 1 && mapGrid[currentMap.number-2].inScene == true {
+            
+            mapGrid[currentMap.number-2].removeFromParent()
+            mapGrid[currentMap.number-2].inScene = false
+            print("removed \(currentMap.number - 2)")
+        }
+        
         // Checks if the character is far enough left to add map to left
-        if currentMap.number > 0 && currentMap.number <= 9 && mapGrid[currentMap.number - 1].inScene == false && hero.position.x < 225 * 3 * CGFloat(currentMap.number + 1)  {
+        if currentMap.number > 0 && currentMap.number <= 9 && mapGrid[currentMap.number - 1].inScene == false {
             
             addChild(mapGrid[currentMap.number-1])
             mapGrid[currentMap.number-1].inScene = true
             print("added \(currentMap.number - 1)")
         }
+        
+        // Removes the map that is 2 maps to the right
+        if currentMap.number < 8 && mapGrid[currentMap.number+2].inScene == true {
+            
+            mapGrid[currentMap.number+2].removeFromParent()
+            mapGrid[currentMap.number+2].inScene = false
+            print("removed \(currentMap.number + 2)")
+        }
+        
         
         // Updates which map the character is currently on
         currentMap = mapGrid[Int(hero.position.x / (650 * 3 + 1))]
