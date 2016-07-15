@@ -124,14 +124,7 @@ class GameScene: SKScene {
     
     // Removes a map if it is more than 1 map away from the current one
     func removeMap(side: String) {
-        if currentMap.number > 1 {
-            for i in currentMap.number-2...mapGrid.count {
-                if abs(i - currentMap.number) > 1 && mapGrid[i].inScene == true {
-                    mapGrid[i].removeFromParent()
-                    mapGrid[i].inScene = false
-                }
-            }
-        }
+        
     }
     
 }
