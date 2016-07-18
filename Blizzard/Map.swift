@@ -12,7 +12,7 @@ import SpriteKit
 class Map: SKSpriteNode {
     
         // Variable to keep track which map is which
-        var number = 0
+        var number = (x: 0, y: 0)
     
         // Variable to keep track of whether or not a map is in the scene
         var inScene = false

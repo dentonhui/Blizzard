@@ -17,7 +17,7 @@ class GameScene: SKScene {
     var currentMap: Map!
     
     // Array to hold the maps made
-    var mapGrid: [Map] = []
+    var mapGrid = [[Map]]()
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -32,26 +32,41 @@ class GameScene: SKScene {
         self.camera = cam
         hero.addChild(self.camera!)
         
-        // Generates array of maps
-        for i in 0...9 {
-            let map = Map()
-            map.inScene = false
-            map.zPosition = -1
+        // Generates  2darray of maps
+        for x in 0...9 {
             
-            if i == 0 {
-                map.inScene = true
-                map.position = hero.position
-                self.addChild(map)
-                currentMap = map
-            }
-            else {
-                map.position.y = mapGrid[i-1].position.y
-                map.position.x = mapGrid[i-1].position.x + (650 * 3)
-            }
+            var mapRow : [Map] = []
             
-            map.number = i
-            mapGrid.append(map)
+            for y in 0...9 {
+                
+                let map = Map()
+                map.inScene = false
+                map.zPosition = -1
+                
+                if y == 0 {
+                    map.position.x = hero.position.x
+                    map.position.y = hero.position.y + CGFloat(650 * 3 * x)
+                }
+                else {
+                    map.position.x = hero.position.x + CGFloat(650 * 3 * y)
+                    map.position.y = hero.position.y + CGFloat(650 * 3 * x)
+                }
+                
+                map.number.x = x
+                map.number.y = y
+                
+                mapRow.append(map)
+                //print("added \(map.number.x), \(map.number.y), position: \(map.position.x), \(map.position.y)")
+                if y == 9 {
+                    mapGrid.append(mapRow)
+                    //print("added \(map.number.x) row")
+                }
+            }
         }
+        
+        mapGrid[0][0].inScene = true
+        self.addChild(mapGrid[0][0])
+        currentMap = mapGrid[0][0]
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -79,40 +94,40 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
         
         // Checks if the character is far enough right to add map to right
-        if currentMap.number >= 0 && currentMap.number < mapGrid.count-1 && mapGrid[currentMap.number + 1].inScene == false && hero.position.x  > 425 * 3 * CGFloat(currentMap.number + 1)  {
+        if currentMap.number.y >= 0 && currentMap.number.y < 9 && mapGrid[0][currentMap.number.y + 1].inScene == false && hero.position.x  > 425 * 3 * CGFloat(currentMap.number.y + 1)  {
             
-            addChild(mapGrid[currentMap.number+1])
-            mapGrid[currentMap.number+1].inScene = true
-            print("added \(currentMap.number + 1)")
+            addChild(mapGrid[0][currentMap.number.y+1])
+            mapGrid[0][currentMap.number.y+1].inScene = true
+            print("added \(currentMap.number.x), \(currentMap.number.y + 1)")
         }
         
         // Removes the map that is 2 maps to the left
-        if currentMap.number > 1 && mapGrid[currentMap.number-2].inScene == true {
+        if currentMap.number.y > 1 && mapGrid[0][currentMap.number.y-2].inScene == true {
             
-            mapGrid[currentMap.number-2].removeFromParent()
-            mapGrid[currentMap.number-2].inScene = false
-            print("removed \(currentMap.number - 2)")
+            mapGrid[0][currentMap.number.y-2].removeFromParent()
+            mapGrid[0][currentMap.number.y-2].inScene = false
+            print("removed \(currentMap.number.x), \(currentMap.number.y - 2)")
         }
         
         // Checks if the character is far enough left to add map to left
-        if currentMap.number > 0 && currentMap.number <= 9 && mapGrid[currentMap.number - 1].inScene == false {
+        if currentMap.number.y > 0 && currentMap.number.x <= 9 && mapGrid[0][currentMap.number.y - 1].inScene == false {
             
-            addChild(mapGrid[currentMap.number-1])
-            mapGrid[currentMap.number-1].inScene = true
-            print("added \(currentMap.number - 1)")
+            addChild(mapGrid[0][currentMap.number.y-1])
+            mapGrid[0][currentMap.number.y-1].inScene = true
+            print("added \(currentMap.number.x), \(currentMap.number.y - 1)")
         }
         
         // Removes the map that is 2 maps to the right
-        if currentMap.number < 8 && mapGrid[currentMap.number+2].inScene == true {
+        if currentMap.number.y < 8 && mapGrid[0][currentMap.number.y+2].inScene == true {
             
-            mapGrid[currentMap.number+2].removeFromParent()
-            mapGrid[currentMap.number+2].inScene = false
-            print("removed \(currentMap.number + 2)")
+            mapGrid[0][currentMap.number.y+2].removeFromParent()
+            mapGrid[0][currentMap.number.y+2].inScene = false
+            print("removed \(currentMap.number.x), \(currentMap.number.y + 2)")
         }
         
         
         // Updates which map the character is currently on
-        currentMap = mapGrid[Int(hero.position.x / (650 * 3 + 1))]
+        currentMap = mapGrid[0][Int(hero.position.x / (650 * 3 + 1))]
         
     }
     
