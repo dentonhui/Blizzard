@@ -23,12 +23,8 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        //        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        //        myLabel.text = "Hello, World!"
-        //        myLabel.fontSize = 45
-        //        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        //
-        //        self.addChild(myLabel)
+        
+        // Set up character and camera
         hero.position = CGPoint(x: 325*3, y: 325*3)
         self.addChild(hero)
         self.camera = cam
@@ -67,10 +63,12 @@ class GameScene: SKScene {
             }
         }
         
+        // Sets up inital map tile
         mapGrid[0][0].inScene = true
         self.addChild(mapGrid[0][0])
         currentMap = mapGrid[0][0]
         
+        // Sets up map indicator
         myLabel = SKLabelNode(fontNamed: "Courier")
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         myLabel.fontSize = 45
@@ -105,8 +103,10 @@ class GameScene: SKScene {
         // Updates which map the character is currently on
         currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
         
+        // Updates label for which map the character is currently on
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
+        // Checks if there are maps to add or remove
         checkMap()
         
     }
@@ -116,15 +116,20 @@ class GameScene: SKScene {
 
         for x in currentMap.number.x-2...currentMap.number.x+2 {
             for y in currentMap.number.y-2...currentMap.number.y+2 {
+                
+                // Handles out of bounds for the array
                 if x < 0 || x > 9 || y < 0 || y > 9 {continue}
-
+                
+                // Removes map tiles not within the 8 tiles surrounding current map
                 if (abs(x-currentMap.number.x) == 2 || abs(y-currentMap.number.y) == 2) && mapGrid[x][y].inScene {
                     mapGrid[x][y].removeFromParent()
                     mapGrid[x][y].inScene = false
                     print("removed \(x), \(y)")
                 }
-                if mapGrid[x][y].inScene {continue}
-                if abs(x-currentMap.number.x) < 2 && abs(y-currentMap.number.y) < 2 {
+                
+                // Adds maps to the 8 tiles surrounding current map
+                else if mapGrid[x][y].inScene {continue}
+                else if abs(x-currentMap.number.x) < 2 && abs(y-currentMap.number.y) < 2 {
                     addChild(mapGrid[x][y])
                     mapGrid[x][y].inScene = true
                     print("added \(x), \(y)")
