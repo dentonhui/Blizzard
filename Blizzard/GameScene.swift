@@ -6,12 +6,16 @@
 //  Copyright (c) 2016 Denton Hui. All rights reserved.
 //
 
+import Foundation
 import SpriteKit
 
 class GameScene: SKScene {
     
     var hero = Character()
     let cam = SKCameraNode()
+    
+    // Keeps track of distance moved since last map update check
+    var distanceMoved = CGPointMake(0, 0)
     
     // Variable to hold the map that the character is currently on
     var currentMap: Map!
@@ -85,6 +89,10 @@ class GameScene: SKScene {
             let location = touch.locationInNode(self)
             hero.move(location)
             
+            // Updates distance moved by character since last map update
+            distanceMoved.x += abs(hero.position.x - location.x)
+            distanceMoved.y += abs(hero.position.y - location.y)
+            
             // Makes sure camera doesn't flip
             if hero.direction == .Right {
                 self.camera?.xScale = 1
@@ -106,8 +114,11 @@ class GameScene: SKScene {
         // Updates label for which map the character is currently on
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
-        // Checks if there are maps to add or remove
-        checkMap()
+        // Checks if there are maps to add or remove everytime the character moves at least 650 pixels
+        if distanceMoved.x > 650 || distanceMoved.y > 650 {
+            distanceMoved = CGPointMake(0, 0)
+            checkMap()
+        }
         
     }
     
