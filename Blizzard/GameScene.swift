@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var hero = Character()
     let cam = SKCameraNode()
@@ -23,24 +23,32 @@ class GameScene: SKScene {
     // Array to hold the maps made
     var mapGrid = [[Map]]()
     
+    // Map coordinate display
     var myLabel: SKLabelNode!
+    
+    // Max number of maps on one side. Number of total maps will be (max + 1)^2
+    let max = 5
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
+        // Set up physics world contact delegate
+        physicsWorld.contactDelegate = self
+        
         // Set up character and camera
         hero.position = CGPoint(x: 325*3, y: 325*3)
+        hero.zPosition = 1
         self.addChild(hero)
         self.camera = cam
         hero.addChild(self.camera!)
         
         // Generates  2d array of maps
-        for x in 0...9 {
+        for x in 0...max {
             
             // Temporary array to hold row of maps that will be added to the 2d map array
             var mapRow : [Map] = []
             
-            for y in 0...9 {
+            for y in 0...max {
                 
                 let map = Map()
                 map.inScene = false
@@ -59,10 +67,9 @@ class GameScene: SKScene {
                 map.number.y = y
                 
                 mapRow.append(map)
-                //print("added \(map.number.x), \(map.number.y), position: \(map.position.x), \(map.position.y)")
-                if y == 9 {
+                
+                if y == max {
                     mapGrid.append(mapRow)
-                    //print("added \(map.number.x) row")
                 }
             }
         }
@@ -93,6 +100,12 @@ class GameScene: SKScene {
             distanceMoved.x += abs(hero.position.x - location.x)
             distanceMoved.y += abs(hero.position.y - location.y)
             
+            // Checks if there are maps to add or remove everytime the character moves at least 650 pixels
+            if distanceMoved.x > 650 || distanceMoved.y > 650 {
+                distanceMoved = CGPointMake(0, 0)
+                checkMap()
+            }
+            
             // Makes sure camera doesn't flip
             if hero.direction == .Right {
                 self.camera?.xScale = 1
@@ -113,23 +126,16 @@ class GameScene: SKScene {
         
         // Updates label for which map the character is currently on
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
-        
-        // Checks if there are maps to add or remove everytime the character moves at least 650 pixels
-        if distanceMoved.x > 650 || distanceMoved.y > 650 {
-            distanceMoved = CGPointMake(0, 0)
-            checkMap()
-        }
-        
     }
     
-    // Checks if 8 maps around current map are added. If not, adds them. Also rmoves maps that are too far away.
+    // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
     func checkMap() {
 
         for x in currentMap.number.x-2...currentMap.number.x+2 {
             for y in currentMap.number.y-2...currentMap.number.y+2 {
                 
                 // Handles out of bounds for the array
-                if x < 0 || x > 9 || y < 0 || y > 9 {continue}
+                if x < 0 || x > max || y < 0 || y > max {continue}
                 
                 // Removes map tiles not within the 8 tiles surrounding current map
                 if (abs(x-currentMap.number.x) == 2 || abs(y-currentMap.number.y) == 2) && mapGrid[x][y].inScene {
@@ -144,6 +150,10 @@ class GameScene: SKScene {
                     addChild(mapGrid[x][y])
                     mapGrid[x][y].inScene = true
                     print("added \(x), \(y)")
+                    
+                    let monster = Enemy()
+                    monster.zPosition = 1
+                    mapGrid[x][y].addChild(monster)
                 }
                 
             }

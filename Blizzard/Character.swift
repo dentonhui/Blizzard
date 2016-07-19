@@ -11,7 +11,7 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    var moveSpeed: CGFloat = 2000
+    var moveSpeed: CGFloat = 200
     enum Orientation {
         case Right, Left
     }
@@ -31,6 +31,15 @@ class Character: SKSpriteNode {
     init() {
         let texture = SKTexture(imageNamed: "man")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
+        physicsBody?.affectedByGravity = false
+        physicsBody?.allowsRotation = false
+        physicsBody?.dynamic = true
+        physicsBody?.categoryBitMask = 1
+        physicsBody?.collisionBitMask = 1
+        physicsBody?.contactTestBitMask = 1
+        anchorPoint = CGPoint(x: 0.5,y: 0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
