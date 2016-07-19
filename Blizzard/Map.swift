@@ -21,6 +21,7 @@ class Map: SKSpriteNode {
     // Variable to keep track of whether or not a map is in the scene
     var inScene = false
     
+    
     init() {
         let texture = SKTexture(imageNamed: "backgroundTile")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
@@ -36,7 +37,9 @@ class Map: SKSpriteNode {
         switch number {
             
         case (x: 0, y: 0):
-            break
+            let monster = Enemy()
+            monster.zPosition = 1
+            self.addChild(monster)
             
         default: break
         }

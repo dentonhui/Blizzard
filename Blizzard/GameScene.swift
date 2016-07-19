@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var myLabel: SKLabelNode!
     
     // Max number of maps on one side. Number of total maps will be (max + 1)^2
-    let max = 5
+    let max = 9
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -151,9 +151,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     mapGrid[x][y].inScene = true
                     print("added \(x), \(y)")
                     
-                    let monster = Enemy()
-                    monster.zPosition = 1
-                    mapGrid[x][y].addChild(monster)
                 }
                 
             }
