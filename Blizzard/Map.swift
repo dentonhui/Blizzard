@@ -39,12 +39,18 @@ class Map: SKSpriteNode {
         case (x: 0, y: 0):
             let monster = Enemy()
             monster.zPosition = 1
-            monster.position = CGPointMake(100, 0)
+            monster.position = CGPointMake(200, 0)
             self.addChild(monster)
             
             let rock = Scenery(filename: "rock")
-            rock.position = CGPointMake(-100,0)
+            rock.position = CGPointMake(-200,200)
             self.addChild(rock)
+            
+            let rock2 = Scenery(filename: "rock")
+            rock2.position = CGPointMake(-250,200)
+            self.addChild(rock2)
+            
+            
             
             
         case (x: 0, y: 1):

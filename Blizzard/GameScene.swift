@@ -140,48 +140,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Creates variables for the unwrapped nodes
         let nodeA = contactA.node!
         let nodeB = contactB.node!
-        
-        let x: CGFloat = 4
-        let y: CGFloat = 4
-        let size: CGFloat = 40
-        
+
+        let bounceLimiter: CGFloat = 16
         
         // Stops character from moving if it hits a rock
         if nodeA.name == "man" && nodeB.name == "scenery" {
             nodeA.removeAllActions()
             
             let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
+            let x = (nodeA.position.x - sceneryPosition.x)/bounceLimiter
+            let y = (nodeA.position.y - sceneryPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
             
-            if nodeA.position.x - sceneryPosition.x >= size {
-                nodeA.runAction(SKAction.moveToX(nodeA.position.x+x, duration: 0))
-            }
-            else if nodeA.position.x - sceneryPosition.x <= -size {
-                nodeA.runAction(SKAction.moveToX(nodeA.position.x-x, duration: 0))
-            }
-            else if nodeA.position.y - sceneryPosition.y >= size {
-                nodeA.runAction(SKAction.moveToY(nodeA.position.y+y, duration: 0))
-            }
-            else {
-                nodeA.runAction(SKAction.moveToY(nodeA.position.y-y, duration: 0))
-            }
+            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
         }
         else if nodeB.name == "man" && nodeA.name == "scenery" {
             nodeB.removeAllActions()
             
             let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
             
-            if nodeB.position.x - sceneryPosition.x >= size {
-                nodeB.runAction(SKAction.moveToX(nodeB.position.x+x, duration: 0))
-            }
-            else if nodeB.position.x - sceneryPosition.x <= -size {
-                nodeB.runAction(SKAction.moveToX(nodeB.position.x-x, duration: 0))
-            }
-            else if nodeB.position.y - sceneryPosition.y >= size {
-                nodeB.runAction(SKAction.moveToY(nodeB.position.y+y, duration: 0))
-            }
-            else {
-                nodeB.runAction(SKAction.moveToY(nodeB.position.y-y, duration: 0))
-            }
+            let x = (nodeB.position.x - sceneryPosition.x)/bounceLimiter
+            let y = (nodeB.position.y - sceneryPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
+            
+            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
         }
     }
     

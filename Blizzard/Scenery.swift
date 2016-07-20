@@ -21,7 +21,7 @@ class Scenery: SKSpriteNode {
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
         physicsBody?.dynamic = false
-        physicsBody?.categoryBitMask = 1
+        physicsBody?.categoryBitMask = 0
         physicsBody?.collisionBitMask = 1
         physicsBody?.contactTestBitMask = 1
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
