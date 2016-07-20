@@ -22,10 +22,12 @@ class Enemy: SKSpriteNode {
         physicsBody?.affectedByGravity = false
         physicsBody?.dynamic = true
         physicsBody?.mass = 0.01
-        physicsBody?.categoryBitMask = 1
+        physicsBody?.categoryBitMask = 0
         physicsBody?.collisionBitMask = 1
-        physicsBody?.contactTestBitMask = 1
+        physicsBody?.contactTestBitMask = 0
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
+        
+        self.zPosition = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

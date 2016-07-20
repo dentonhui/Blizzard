@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var myLabel: SKLabelNode!
     
     // Max number of maps on one side. Number of total maps will be (max + 1)^2
-    let max = 9
+    let max = 2
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -128,9 +128,66 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
     }
     
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        //Creates variables for the two objects that contact
+        let contactA: SKPhysicsBody = contact.bodyA
+        let contactB: SKPhysicsBody = contact.bodyB
+        
+        //Returns if the any of the nodes are nil to prevent crashing
+        if contactA.node == nil || contactB.node == nil {return}
+        
+        //Creates variables for the unwrapped nodes
+        let nodeA = contactA.node!
+        let nodeB = contactB.node!
+        
+        let x: CGFloat = 4
+        let y: CGFloat = 4
+        let size: CGFloat = 40
+        
+        
+        // Stops character from moving if it hits a rock
+        if nodeA.name == "man" && nodeB.name == "scenery" {
+            nodeA.removeAllActions()
+            
+            let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
+            
+            if nodeA.position.x - sceneryPosition.x >= size {
+                nodeA.runAction(SKAction.moveToX(nodeA.position.x+x, duration: 0))
+            }
+            else if nodeA.position.x - sceneryPosition.x <= -size {
+                nodeA.runAction(SKAction.moveToX(nodeA.position.x-x, duration: 0))
+            }
+            else if nodeA.position.y - sceneryPosition.y >= size {
+                nodeA.runAction(SKAction.moveToY(nodeA.position.y+y, duration: 0))
+            }
+            else {
+                nodeA.runAction(SKAction.moveToY(nodeA.position.y-y, duration: 0))
+            }
+        }
+        else if nodeB.name == "man" && nodeA.name == "scenery" {
+            nodeB.removeAllActions()
+            
+            let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
+            
+            if nodeB.position.x - sceneryPosition.x >= size {
+                nodeB.runAction(SKAction.moveToX(nodeB.position.x+x, duration: 0))
+            }
+            else if nodeB.position.x - sceneryPosition.x <= -size {
+                nodeB.runAction(SKAction.moveToX(nodeB.position.x-x, duration: 0))
+            }
+            else if nodeB.position.y - sceneryPosition.y >= size {
+                nodeB.runAction(SKAction.moveToY(nodeB.position.y+y, duration: 0))
+            }
+            else {
+                nodeB.runAction(SKAction.moveToY(nodeB.position.y-y, duration: 0))
+            }
+        }
+    }
+    
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
     func checkMap() {
-
+        
         for x in currentMap.number.x-2...currentMap.number.x+2 {
             for y in currentMap.number.y-2...currentMap.number.y+2 {
                 
@@ -143,8 +200,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     mapGrid[x][y].inScene = false
                     print("removed \(x), \(y)")
                 }
-                
-                // Adds maps to the 8 tiles surrounding current map
+                    
+                    // Adds maps to the 8 tiles surrounding current map
                 else if mapGrid[x][y].inScene {continue}
                 else if abs(x-currentMap.number.x) < 2 && abs(y-currentMap.number.y) < 2 {
                     addChild(mapGrid[x][y])
@@ -156,7 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
         }
-
+        
     }
     
 }

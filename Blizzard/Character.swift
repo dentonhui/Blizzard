@@ -11,7 +11,8 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    var moveSpeed: CGFloat = 2000
+    
+    var moveSpeed: CGFloat = 100
     enum Orientation {
         case Right, Left
     }
@@ -40,6 +41,8 @@ class Character: SKSpriteNode {
         physicsBody?.collisionBitMask = 1
         physicsBody?.contactTestBitMask = 1
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
+        
+        self.name = "man"
     }
     
     required init?(coder aDecoder: NSCoder) {
