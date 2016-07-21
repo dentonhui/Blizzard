@@ -37,10 +37,10 @@ class Map: SKSpriteNode {
         switch number {
             
         case (x: 0, y: 0):
-            let monster = Enemy()
-            monster.zPosition = 1
-            monster.position = CGPointMake(200, 0)
-            self.addChild(monster)
+            let enemy = Enemy()
+            enemy.zPosition = 1
+            enemy.position = CGPointMake(200, 0)
+            self.addChild(enemy)
             
             let rock = Scenery(filename: "rock")
             rock.position = CGPointMake(-200,200)
@@ -51,18 +51,18 @@ class Map: SKSpriteNode {
             self.addChild(rock2)
 
         case (x: 0, y: 1):
-            let monster = Enemy()
-            self.addChild(monster)
-            monster.position = CGPointMake(-100, 0)
+            let enemy = Enemy()
+            enemy.position = CGPointMake(-100, 0)
+            self.addChild(enemy)
             
-            let monster2 = Enemy()
-            monster2.position = CGPointMake(0, 0)
-            self.addChild(monster2)
+            let enemy2 = Enemy()
+            enemy2.position = CGPointMake(0, 0)
+            self.addChild(enemy2)
             
         case (x: 0, y: 2):
-            let monster = Enemy()
-            monster.position = CGPointMake(200, -100)
-            self.addChild(monster)
+            let enemy = Enemy()
+            enemy.position = CGPointMake(200, -100)
+            self.addChild(enemy)
             
         default: break
             

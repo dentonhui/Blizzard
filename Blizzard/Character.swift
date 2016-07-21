@@ -11,8 +11,7 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    
-    var moveSpeed: CGFloat = 100
+    var moveSpeed: CGFloat = 1000
     enum Orientation {
         case Right, Left
     }
@@ -29,6 +28,17 @@ class Character: SKSpriteNode {
         }
     }
     
+    enum HeroState {
+        case Idle, Moving, Combat
+    }
+    
+    var state = HeroState.Idle
+    
+    var targeted: Enemy?
+    
+    let fireRate = 60
+    var fireCounter = 0
+
     init() {
         let texture = SKTexture(imageNamed: "man")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
@@ -78,5 +88,27 @@ class Character: SKSpriteNode {
         }
         
         self.runAction(move, withKey: "move")
+        if self.state != .Combat {self.state = .Moving}
     }
+    
+    func shoot() {
+        
+        let projectile = SKSpriteNode(imageNamed: "projectile")
+        
+        projectile.physicsBody = SKPhysicsBody(rectangleOfSize: projectile.size)
+        projectile.physicsBody?.affectedByGravity = false
+        projectile.physicsBody?.allowsRotation = false
+        projectile.physicsBody?.categoryBitMask = 2
+        projectile.physicsBody?.collisionBitMask = 0
+        projectile.physicsBody?.contactTestBitMask = 2
+        projectile.zPosition = 10
+        projectile.anchorPoint = CGPoint(x: 0.5,y: 0.5)
+        
+        projectile.name = "projectile"
+        
+        targeted!.addChild(projectile)
+        
+        print("added projectile")
+    }
+
 }

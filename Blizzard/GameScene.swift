@@ -87,86 +87,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         myLabel.zPosition = 10
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        
-        for touch in touches {
-            
-            // Moves character
-            let location = touch.locationInNode(self)
-            hero.move(location)
-            
-            // Updates distance moved by character since last map update
-            distanceMoved.x += abs(hero.position.x - location.x)
-            distanceMoved.y += abs(hero.position.y - location.y)
-            
-            // Checks if there are maps to add or remove everytime the character moves at least 650 pixels
-            if distanceMoved.x > 650 || distanceMoved.y > 650 {
-                distanceMoved = CGPointMake(0, 0)
-                checkMap()
-            }
-            
-            // Makes sure camera doesn't flip
-            if hero.direction == .Right {
-                self.camera?.xScale = 1
-            }
-            else {
-                self.camera?.xScale = -1
-            }
-            
-        }
-        
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        
-        // Updates which map the character is currently on
-        currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
-        
-        // Updates label for which map the character is currently on
-        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
-    }
-    
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-        //Creates variables for the two objects that contact
-        let contactA: SKPhysicsBody = contact.bodyA
-        let contactB: SKPhysicsBody = contact.bodyB
-        
-        //Returns if the any of the nodes are nil to prevent crashing
-        if contactA.node == nil || contactB.node == nil {return}
-        
-        //Creates variables for the unwrapped nodes
-        let nodeA = contactA.node!
-        let nodeB = contactB.node!
-
-        let bounceLimiter: CGFloat = 20
-        
-        // Stops character from moving if it hits a rock
-        if nodeA.name == "man" && nodeB.name == "scenery" {
-            nodeA.removeAllActions()
-            
-            let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
-            let x = (nodeA.position.x - sceneryPosition.x)/bounceLimiter
-            let y = (nodeA.position.y - sceneryPosition.y)/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
-        }
-        else if nodeB.name == "man" && nodeA.name == "scenery" {
-            nodeB.removeAllActions()
-            
-            let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
-            
-            let x = (nodeB.position.x - sceneryPosition.x)/bounceLimiter
-            let y = (nodeB.position.y - sceneryPosition.y)/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
-        }
-    }
-    
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
     func checkMap() {
         
@@ -195,6 +115,130 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
         }
+        
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        
+        for touch in touches {
+            
+            // Moves character
+            let location = touch.locationInNode(self)
+            let touchedNode = nodeAtPoint(location)
+            
+            if touchedNode.name == "enemy" {
+                let touchedEnemy = nodeAtPoint(location) as! Enemy
+                
+                let target = SKSpriteNode(imageNamed: "targetSmall")
+                touchedEnemy.addChild(target)
+                
+                hero.targeted = touchedEnemy
+                hero.state = .Combat
+            }
+                
+            else {
+                
+                hero.move(location)
+                
+                // Updates distance moved by character since last map update
+                distanceMoved.x += abs(hero.position.x - location.x)
+                distanceMoved.y += abs(hero.position.y - location.y)
+                
+                // Checks if there are maps to add or remove everytime the character moves at least 650 pixels
+                if distanceMoved.x > 650 || distanceMoved.y > 650 {
+                    distanceMoved = CGPointMake(0, 0)
+                    checkMap()
+                }
+                
+                // Makes sure camera doesn't flip
+                if hero.direction == .Right {
+                    self.camera?.xScale = 1
+                }
+                else {
+                    self.camera?.xScale = -1
+                }
+            }
+            
+        }
+        
+    }
+    
+    override func update(currentTime: CFTimeInterval) {
+        /* Called before each frame is rendered */
+        
+        // Updates which map the character is currently on
+        currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
+        
+        // Updates label for which map the character is currently on
+        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
+        
+        // Checks for character's states
+        if !hero.hasActions() && hero.state != .Combat {hero.state = .Idle}
+        if hero.state == .Combat && hero.fireCounter % hero.fireRate == 0 && hero.targeted != nil {
+            hero.shoot()
+        }
+        hero.fireCounter += 1
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        //Creates variables for the two objects that contact
+        let contactA: SKPhysicsBody = contact.bodyA
+        let contactB: SKPhysicsBody = contact.bodyB
+        
+        //Returns if the any of the nodes are nil to prevent crashing
+        if contactA.node == nil || contactB.node == nil {return}
+        
+        //Creates variables for the unwrapped nodes
+        let nodeA = contactA.node!
+        let nodeB = contactB.node!
+        
+        let bounceLimiter: CGFloat = 20
+        
+        // Stops character from moving if it hits a rock
+        if nodeA.name == "man" && nodeB.name == "scenery" {
+            nodeA.removeAllActions()
+            
+            let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
+            let x = (nodeA.position.x - sceneryPosition.x)/bounceLimiter
+            let y = (nodeA.position.y - sceneryPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
+            
+            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
+        }
+        else if nodeB.name == "man" && nodeA.name == "scenery" {
+            nodeB.removeAllActions()
+            
+            let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
+            
+            let x = (nodeB.position.x - sceneryPosition.x)/bounceLimiter
+            let y = (nodeB.position.y - sceneryPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
+            
+            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
+        }
+        
+        // Deals with projectile contacts
+        if nodeA.name == "projectile" && nodeB.name == "enemy" {
+            
+            let enemy = nodeB as! Enemy
+            enemy.damage += 1
+            print("dealt damage")
+            //nodeA.removeFromParent()
+            if enemy.damage == 3 {hero.targeted = nil}
+        }
+        else if nodeB.name == "projectile" && nodeA.name == "enemy" {
+            
+            let enemy = nodeA as! Enemy
+            enemy.damage += 1
+            print("dealt damage")
+            //nodeB.removeFromParent()
+            if enemy.damage == 3 {hero.targeted = nil}
+
+            
+        }
+        
         
     }
     

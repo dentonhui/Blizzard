@@ -11,6 +11,15 @@ import SpriteKit
 
 class Enemy: SKSpriteNode {
     
+    var damage = 0 {
+        didSet {
+            print(damage)
+            if damage == 3 {
+                self.removeFromParent()
+            }
+        }
+    }
+    
     init() {
         let texture = SKTexture(imageNamed: "man")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
@@ -22,11 +31,14 @@ class Enemy: SKSpriteNode {
         physicsBody?.affectedByGravity = false
         physicsBody?.dynamic = true
         physicsBody?.mass = 0.01
-        physicsBody?.categoryBitMask = 0
+        physicsBody?.categoryBitMask = 2
         physicsBody?.collisionBitMask = 1
-        physicsBody?.contactTestBitMask = 0
+        physicsBody?.contactTestBitMask = 2
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
+        
+        self.name = "enemy"
+
         self.zPosition = 1
     }
     
