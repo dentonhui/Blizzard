@@ -111,11 +111,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     print("added \(x), \(y)")
                     
                 }
-                
             }
-            
         }
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -160,9 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.camera?.xScale = -1
                 }
             }
-            
         }
-        
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -184,7 +179,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if hero.state == .Combat {
             hero.fireCounter += 1
         }
-        print(hero.state)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -239,11 +233,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemy.damage += 1
             //nodeB.removeFromParent()
             if enemy.damage == 3 {hero.targeted = nil}
-
-            
         }
-        
-        
     }
-    
 }

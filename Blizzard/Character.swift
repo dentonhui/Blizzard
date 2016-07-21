@@ -84,7 +84,6 @@ class Character: SKSpriteNode {
             if location.x > self.position.x {
                 direction = .Right
             }
-            
         }
         
         self.runAction(move, withKey: "move")
@@ -93,21 +92,8 @@ class Character: SKSpriteNode {
     
     func shoot() {
         
-        let projectile = SKSpriteNode(imageNamed: "projectile")
-        
-        projectile.physicsBody = SKPhysicsBody(rectangleOfSize: projectile.size)
-        projectile.physicsBody?.affectedByGravity = false
-        projectile.physicsBody?.allowsRotation = false
-        projectile.physicsBody?.categoryBitMask = 2
-        projectile.physicsBody?.collisionBitMask = 0
-        projectile.physicsBody?.contactTestBitMask = 2
-        projectile.zPosition = 10
-        projectile.anchorPoint = CGPoint(x: 0.5,y: 0.5)
-        
-        projectile.name = "projectile"
+        let projectile = Projectile(imageNamed: "projectile")
         
         targeted!.addChild(projectile)
-        
     }
-
 }

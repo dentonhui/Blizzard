@@ -68,5 +68,4 @@ class Map: SKSpriteNode {
             
         }
     }
-    
 }
