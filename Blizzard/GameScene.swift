@@ -141,7 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeA = contactA.node!
         let nodeB = contactB.node!
 
-        let bounceLimiter: CGFloat = 16
+        let bounceLimiter: CGFloat = 20
         
         // Stops character from moving if it hits a rock
         if nodeA.name == "man" && nodeB.name == "scenery" {

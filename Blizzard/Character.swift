@@ -52,7 +52,10 @@ class Character: SKSpriteNode {
     func move (location: CGPoint) {
     // A function to move the hero character at a constant speed
         
-        self.removeAllActions()
+        if self.hasActions() {
+            self.removeActionForKey("move")
+        }
+        
         let distancex = abs(self.position.x - location.x)
         let distancey = abs(self.position.y - location.y)
         let distance = sqrt(distancex * distancex + distancey * distancey)
@@ -74,6 +77,6 @@ class Character: SKSpriteNode {
             
         }
         
-        self.runAction(move)
+        self.runAction(move, withKey: "move")
     }
 }
