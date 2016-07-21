@@ -135,6 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 hero.targeted = touchedEnemy
                 hero.state = .Combat
+                hero.fireCounter = 0
             }
                 
             else {
@@ -174,11 +175,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
         // Checks for character's states
-        if !hero.hasActions() && hero.state != .Combat {hero.state = .Idle}
+        if (!hero.hasActions() && hero.state != .Combat) || (hero.state == .Combat && hero.targeted == nil) {
+            hero.state = .Idle
+        }
         if hero.state == .Combat && hero.fireCounter % hero.fireRate == 0 && hero.targeted != nil {
             hero.shoot()
         }
-        hero.fireCounter += 1
+        if hero.state == .Combat {
+            hero.fireCounter += 1
+        }
+        print(hero.state)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -224,7 +230,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = nodeB as! Enemy
             enemy.damage += 1
-            print("dealt damage")
             //nodeA.removeFromParent()
             if enemy.damage == 3 {hero.targeted = nil}
         }
@@ -232,7 +237,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = nodeA as! Enemy
             enemy.damage += 1
-            print("dealt damage")
             //nodeB.removeFromParent()
             if enemy.damage == 3 {hero.targeted = nil}
 

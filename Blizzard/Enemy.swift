@@ -13,7 +13,6 @@ class Enemy: SKSpriteNode {
     
     var damage = 0 {
         didSet {
-            print(damage)
             if damage == 3 {
                 self.removeFromParent()
             }

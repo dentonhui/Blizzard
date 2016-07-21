@@ -108,7 +108,6 @@ class Character: SKSpriteNode {
         
         targeted!.addChild(projectile)
         
-        print("added projectile")
     }
 
 }
