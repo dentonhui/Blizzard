@@ -11,6 +11,7 @@ import SpriteKit
 
 class Scenery: SKSpriteNode {
     
+    // Sets up scenery object by taking in a filename and make an object of that file's texture
     init(filename: String) {
         let texture = SKTexture(imageNamed: filename)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())

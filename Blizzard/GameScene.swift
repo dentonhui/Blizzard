@@ -224,14 +224,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = nodeB as! Enemy
             enemy.damage += 1
-            //nodeA.removeFromParent()
             if enemy.damage == 3 {hero.targeted = nil}
         }
         else if nodeB.name == "projectile" && nodeA.name == "enemy" {
             
             let enemy = nodeA as! Enemy
             enemy.damage += 1
-            //nodeB.removeFromParent()
             if enemy.damage == 3 {hero.targeted = nil}
         }
     }

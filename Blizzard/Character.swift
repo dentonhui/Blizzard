@@ -11,7 +11,7 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    var moveSpeed: CGFloat = 1000
+    var moveSpeed: CGFloat = 100
     enum Orientation {
         case Right, Left
     }
@@ -28,17 +28,20 @@ class Character: SKSpriteNode {
         }
     }
     
+    // States for the hero
     enum HeroState {
         case Idle, Moving, Combat
     }
-    
     var state = HeroState.Idle
     
+    // Variable to hold the targeted enemy
     var targeted: Enemy?
     
+    // Controls the fire rate
     let fireRate = 60
     var fireCounter = 0
 
+    // Sets up the character
     init() {
         let texture = SKTexture(imageNamed: "man")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
@@ -59,17 +62,18 @@ class Character: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
-    func move (location: CGPoint) {
     // A function to move the hero character at a constant speed
+    func move (location: CGPoint) {
         
+        // Checks if the character has a move action and if so, removes it
         if self.hasActions() {
             self.removeActionForKey("move")
         }
         
+        // Calculates duration so that the character moves at a constant speed
         let distancex = abs(self.position.x - location.x)
         let distancey = abs(self.position.y - location.y)
         let distance = sqrt(distancex * distancex + distancey * distancey)
-        
         let duration = NSTimeInterval(distance / self.moveSpeed)
         let move = SKAction.moveTo(location, duration: duration)
         
@@ -87,13 +91,20 @@ class Character: SKSpriteNode {
         }
         
         self.runAction(move, withKey: "move")
+        
+        // Ensures that character won't change to move state if it is in combat
         if self.state != .Combat {self.state = .Moving}
     }
     
+    // Function to shoot a projectile
     func shoot() {
         
+        // Creates the projectile, which is a child of the scene, like the character
         let projectile = Projectile(imageNamed: "projectile")
+        projectile.position = self.position
+        self.parent!.addChild(projectile)
         
-        targeted!.addChild(projectile)
+        // Uses the projectile class' function to shoot at the targeted enemy
+        projectile.shootProjectile(targeted!)
     }
 }

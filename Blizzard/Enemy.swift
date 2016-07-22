@@ -11,6 +11,7 @@ import SpriteKit
 
 class Enemy: SKSpriteNode {
     
+    // A damage counter to keep track of the enemy's health
     var damage = 0 {
         didSet {
             if damage == 3 {
@@ -19,6 +20,7 @@ class Enemy: SKSpriteNode {
         }
     }
     
+    // Sets up the enemy
     init() {
         let texture = SKTexture(imageNamed: "man")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())

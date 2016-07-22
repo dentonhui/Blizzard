@@ -21,7 +21,7 @@ class Map: SKSpriteNode {
     // Variable to keep track of whether or not a map is in the scene
     var inScene = false
     
-    
+    // Sets up the map tiles
     init() {
         let texture = SKTexture(imageNamed: "backgroundTile")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
@@ -33,6 +33,7 @@ class Map: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
+    // Instructions for each of the maps
     func populateMap() {
         switch number {
             
