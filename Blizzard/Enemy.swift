@@ -46,4 +46,12 @@ class Enemy: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    func damaged() {
+        
+        //Turns the enemy red, then back to its original color after it is hit
+        let red = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 1.0, duration: 0.1)
+        let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
+        self.runAction(SKAction.sequence([red, restore]))
+    }
 }
