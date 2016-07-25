@@ -38,10 +38,17 @@ class Map: SKSpriteNode {
         switch number {
             
         case (x: 0, y: 0):
-            let enemy = Enemy()
-            enemy.zPosition = 1
-            enemy.position = CGPointMake(200, 0)
-            self.addChild(enemy)
+//            var enemy = Enemy()
+//            enemy.zPosition = 1
+//            enemy.position = CGPointMake(200, 0)
+//            self.addChild(enemy)
+            
+            for i in 0...5 {
+                let enemy = Enemy()
+                enemy.zPosition = 1
+                enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 0)
+                self.addChild(enemy)
+            }
             
             let rock = Scenery(filename: "rock")
             rock.position = CGPointMake(-200,200)

@@ -26,6 +26,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Map coordinate display
     var myLabel: SKLabelNode!
     
+    // Target indicator
+    var target: SKSpriteNode!
+    
     // Max number of maps on one side. Number of total maps will be (max + 1)^2
     let max = 2
     
@@ -41,6 +44,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(hero)
         self.camera = cam
         hero.addChild(self.camera!)
+        
+        // Set up target indicator
+        target = SKSpriteNode(imageNamed: "targetSmall")
+        target.name = "target"
+        target.zPosition = 20
         
         // Generates  2d array of maps
         for x in 0...max {
@@ -120,21 +128,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for touch in touches {
             
-            // Moves character
             let location = touch.locationInNode(self)
             let touchedNode = nodeAtPoint(location)
             
-            if touchedNode.name == "enemy" {
+            // Switches target if already in comabt
+            if touchedNode.name == "enemy"  && hero.targeted != nil {
                 let touchedEnemy = nodeAtPoint(location) as! Enemy
-                
-                let target = SKSpriteNode(imageNamed: "targetSmall")
+                target.removeFromParent()
                 touchedEnemy.addChild(target)
-                
                 hero.targeted = touchedEnemy
-                hero.state = .Combat
-                hero.fireCounter = 0
             }
                 
+            // Adds target and switches to cobat
+            else if touchedNode.name == "enemy" {
+                let touchedEnemy = nodeAtPoint(location) as! Enemy
+                touchedEnemy.addChild(target)
+                hero.targeted = touchedEnemy
+                hero.state = .Combat
+            }
+                
+            // Removes a target and switches to idle
+            else if touchedNode.name == "target" {
+                target.removeFromParent()
+                hero.targeted = nil
+                hero.state = .Idle
+            }
+              
+            // Moves character
             else {
                 
                 hero.move(location)
@@ -225,14 +245,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let enemy = nodeB as! Enemy
             enemy.damage += 1
             enemy.damaged()
-            if enemy.damage == 3 {hero.targeted = nil}
+            nodeA.removeFromParent()
+            if hero.targeted != nil && enemy.damage == 3 && enemy == hero.targeted! {hero.targeted = nil}
         }
         else if nodeB.name == "projectile" && nodeA.name == "enemy" {
             
             let enemy = nodeA as! Enemy
             enemy.damage += 1
             enemy.damaged()
-            if enemy.damage == 3 {hero.targeted = nil}
+            nodeB.removeFromParent()
+            if hero.targeted != nil && enemy.damage == 3 && enemy == hero.targeted! {hero.targeted = nil}
         }
     }
 }

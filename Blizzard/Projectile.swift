@@ -11,11 +11,12 @@ import SpriteKit
 
 class Projectile: SKSpriteNode {
     
+    // Variable for the speed at which the projectile moves
     let fireSpeed: CGFloat = 200
     
     // Variable to hold taget position
     var targetP = CGPointMake(-1, -1)
-    
+        
     // Ses up projectile
     init(imageNamed: String) {
         let texture = SKTexture(imageNamed: imageNamed)

@@ -38,7 +38,7 @@ class Character: SKSpriteNode {
     var targeted: Enemy?
     
     // Controls the fire rate
-    let fireRate = 60
+    let fireRate = 30
     var fireCounter = 0
 
     // Sets up the character
