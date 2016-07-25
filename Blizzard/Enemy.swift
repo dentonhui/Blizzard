@@ -21,8 +21,8 @@ class Enemy: SKSpriteNode {
     }
     
     // Sets up the enemy
-    init() {
-        let texture = SKTexture(imageNamed: "man")
+    init(imageNamed: String) {
+        let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         //size = CGSize(width: 200, height: 160)
