@@ -11,13 +11,19 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
+    // COntrols move speed
     var moveSpeed: CGFloat = 100
+    
+    // Controls the fire rate
+    let fireRate = 10
+    var fireCounter = 0
+    
     enum Orientation {
         case Right, Left
     }
+    
+    // Switches character sprite's visual orientation whenever the orientaiton in code changes
     var direction = Orientation.Right {
-        
-        // Switches character sprite's visual orientation whenever the orientaiton in code changes
         didSet {
             if direction == .Right {
                 self.xScale = 1
@@ -30,20 +36,19 @@ class Character: SKSpriteNode {
     
     // States for the hero
     enum HeroState {
-        case Idle, Moving, Combat
+        case Idle, Moving, CombatMove, CombatIdle
     }
     var state = HeroState.Idle
     
     // Variable to hold the targeted enemy
     var targeted: Enemy?
     
-    // Controls the fire rate
-    let fireRate = 30
-    var fireCounter = 0
+    // Variable to hold walking frames
+    var manWalkingFrames: [SKTexture]!
 
     // Sets up the character
     init() {
-        let texture = SKTexture(imageNamed: "man")
+        let texture = SKTexture(imageNamed: "manWalkingAnimation_5")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
@@ -56,10 +61,43 @@ class Character: SKSpriteNode {
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
         self.name = "man"
+        
+        // Initilizes walking frames
+        var walkFrames = [SKTexture]()
+        
+        for i in 0...5 {
+            let name = "manWalkingAnimation_\(i)"
+            let walkFrame = SKTexture(imageNamed: name)
+            walkFrames.append(walkFrame)
+        }
+        manWalkingFrames = walkFrames
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    // Function to return a boolean for whether or not the hero is in combat
+    func inCombat()-> Bool {
+        if self.state == .CombatMove || self.state == .CombatIdle {return true}
+        else {return false}
+    }
+    
+    // Function to shoot a projectile
+    func shoot() {
+        
+        // Creates the projectile, which is a child of the scene, like the character
+        let projectile = Projectile(imageNamed: "projectile")
+        projectile.position = self.position
+        self.parent!.addChild(projectile)
+        
+        // Uses the projectile class' function to shoot at the targeted enemy
+        projectile.shootProjectile(targeted!)
+    }
+    
+    // Function to animate character
+    func walkingMan() {
+        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(manWalkingFrames, timePerFrame: 0.2, resize: false, restore: false)), withKey: "walkingMan")
     }
     
     // A function to move the hero character at a constant speed
@@ -77,6 +115,17 @@ class Character: SKSpriteNode {
         let duration = NSTimeInterval(distance / self.moveSpeed)
         let move = SKAction.moveTo(location, duration: duration)
         
+        // Action after move to remove animation and switch state
+        let doneMove = (SKAction.runBlock({
+            self.removeActionForKey("walkingMan")
+            
+            // If in combat, then after moving change to combat idle
+            if self.inCombat() {self.state = .CombatIdle}
+                
+                // If not in combat, then after moving change to idle
+            else {self.state = .Idle}
+        }))
+        
         // A switch case to change character orientation if it heads in a direction different from their current orientation
         switch  direction {
         case .Right:
@@ -90,21 +139,13 @@ class Character: SKSpriteNode {
             }
         }
         
-        self.runAction(move, withKey: "move")
+        let moveWithDone = SKAction.sequence([move, doneMove])
+        self.runAction(moveWithDone, withKey: "move")
+        walkingMan()
         
-        // Ensures that character won't change to move state if it is in combat
-        if self.state != .Combat {self.state = .Moving}
-    }
-    
-    // Function to shoot a projectile
-    func shoot() {
-        
-        // Creates the projectile, which is a child of the scene, like the character
-        let projectile = Projectile(imageNamed: "projectile")
-        projectile.position = self.position
-        self.parent!.addChild(projectile)
-        
-        // Uses the projectile class' function to shoot at the targeted enemy
-        projectile.shootProjectile(targeted!)
+        // If character is in combat idle, then moving changes state to combat move
+        if self.state == .CombatIdle {self.state = .CombatMove}
+            // If character is idle, then moving changes state to moving
+        else if self.state == .Idle {self.state = .Moving}
     }
 }

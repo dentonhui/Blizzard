@@ -131,7 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = nodeAtPoint(location)
             
-            // Switches target if already in comabt
+            // Switches target if already in comabat
             if touchedNode.name == "enemy"  && hero.targeted != nil {
                 let touchedEnemy = nodeAtPoint(location) as! Enemy
                 target.removeFromParent()
@@ -139,12 +139,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 hero.targeted = touchedEnemy
             }
                 
-            // Adds target and switches to cobat
+            // Adds target and switches to combat
             else if touchedNode.name == "enemy" {
                 let touchedEnemy = nodeAtPoint(location) as! Enemy
                 touchedEnemy.addChild(target)
                 hero.targeted = touchedEnemy
-                hero.state = .Combat
+                if hero.state == .Moving {
+                    hero.state = .CombatMove}
+                else {
+                    hero.state = .CombatIdle}
             }
                 
             // Removes a target and switches to idle
@@ -189,16 +192,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Updates label for which map the character is currently on
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
-        // Checks for character's states
-        if (!hero.hasActions() && hero.state != .Combat) || (hero.state == .Combat && hero.targeted == nil) {
+        // If the character either: has no actions and is not in combat, or is in combat and has no target, then switch to idle
+        if (!hero.hasActions() && !hero.inCombat()) ||
+            (hero.inCombat() && hero.targeted == nil) {
             hero.state = .Idle
         }
-        if hero.state == .Combat && hero.fireCounter % hero.fireRate == 0 && hero.targeted != nil {
-            hero.shoot()
-        }
-        if hero.state == .Combat {
+        // If the character is in combat, increment firecounter and shoot
+        else if hero.inCombat() {
             hero.fireCounter += 1
+            
+            if hero.fireCounter % hero.fireRate == 0 {hero.shoot()}
         }
+        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
