@@ -15,7 +15,7 @@ class Character: SKSpriteNode {
     var moveSpeed: CGFloat = 100
     
     // Controls the fire rate
-    let fireRate = 10
+    let fireRate = 20
     var fireCounter = 0
     
     enum Orientation {
@@ -38,7 +38,15 @@ class Character: SKSpriteNode {
     enum HeroState {
         case Idle, Moving, CombatMove, CombatIdle
     }
-    var state = HeroState.Idle
+    var state = HeroState.Idle {
+        didSet {
+            
+            // Runs the walking animation everytime the state changes to moving or combat move
+            if state == .Moving || state == .CombatMove {
+                self.walkingMan()
+            }
+        }
+    }
     
     // Variable to hold the targeted enemy
     var targeted: Enemy?
@@ -127,14 +135,6 @@ class Character: SKSpriteNode {
         let distance = sqrt(distancex * distancex + distancey * distancey)
         let duration = NSTimeInterval(distance / self.moveSpeed)
         let move = SKAction.moveTo(location, duration: duration)
-        
-        // Checks if the character has a move animation and if so, removes it
-        if self.actionForKey("walkingMan") != nil {
-            self.removeActionForKey("walkingMan")
-        }
-        
-        // Runs walking animation
-        walkingMan()
         
         // Checks if the character has a move action and if so, removes it
         if self.actionForKey("move") != nil {
