@@ -48,6 +48,8 @@ class Map: SKSpriteNode {
                 enemy.zPosition = 1
                 enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 0)
                 self.addChild(enemy)
+                enemy.walkingFox()
+                enemy.idleMove()
             }
             
             let rock = Scenery(filename: "rock")
@@ -66,11 +68,13 @@ class Map: SKSpriteNode {
             let enemy2 = Enemy(imageNamed: "fox")
             enemy2.position = CGPointMake(0, 0)
             self.addChild(enemy2)
+            break
             
         case (x: 0, y: 2):
             let enemy = Enemy(imageNamed: "fox")
             enemy.position = CGPointMake(200, -100)
             self.addChild(enemy)
+            break
             
         default: break
             

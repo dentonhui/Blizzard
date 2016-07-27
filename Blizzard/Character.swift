@@ -11,18 +11,17 @@ import SpriteKit
 
 class Character: SKSpriteNode {
     
-    // COntrols move speed
+    // Controls move speed
     var moveSpeed: CGFloat = 100
     
     // Controls the fire rate
     let fireRate = 20
     var fireCounter = 0
     
+    // Switches character sprite's visual orientation whenever the orientaiton in code changes
     enum Orientation {
         case Right, Left
     }
-    
-    // Switches character sprite's visual orientation whenever the orientaiton in code changes
     var direction = Orientation.Right {
         didSet {
             if direction == .Right {
@@ -40,7 +39,6 @@ class Character: SKSpriteNode {
     }
     var state = HeroState.Idle {
         didSet {
-            
             // Runs the walking animation everytime the state changes to moving or combat move
             if state == .Moving || state == .CombatMove {
                 self.walkingMan()
@@ -72,7 +70,6 @@ class Character: SKSpriteNode {
         
         // Initilizes walking frames
         var walkFrames = [SKTexture]()
-        
         for i in 0...5 {
             let name = "manWalkingAnimation_\(i)"
             let walkFrame = SKTexture(imageNamed: name)
@@ -111,6 +108,9 @@ class Character: SKSpriteNode {
     // A function to move the hero character at a constant speed
     func move (location: CGPoint) {
         
+        // Checks if the character has a move action and if so, removes it
+        self.removeActionForKey("move")
+        
         // If character is in combat idle, then moving changes state to combat move
         if self.state == .CombatIdle {self.state = .CombatMove}
             // If character is idle, then moving changes state to moving
@@ -122,7 +122,6 @@ class Character: SKSpriteNode {
             if location.x < self.position.x {
                 direction = .Left
             }
-            
         case .Left:
             if location.x > self.position.x {
                 direction = .Right
@@ -135,11 +134,6 @@ class Character: SKSpriteNode {
         let distance = sqrt(distancex * distancex + distancey * distancey)
         let duration = NSTimeInterval(distance / self.moveSpeed)
         let move = SKAction.moveTo(location, duration: duration)
-        
-        // Checks if the character has a move action and if so, removes it
-        if self.actionForKey("move") != nil {
-            self.removeActionForKey("move")
-        }
         
         // Action after move to remove animation and switch state
         let doneMove = (SKAction.runBlock({

@@ -18,6 +18,12 @@
 		AD0A10251D4929EC00FF8A13 /* manWalkingAnimation_3.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A101F1D4929EC00FF8A13 /* manWalkingAnimation_3.png */; };
 		AD0A10261D4929EC00FF8A13 /* manWalkingAnimation_4.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10201D4929EC00FF8A13 /* manWalkingAnimation_4.png */; };
 		AD0A10271D4929EC00FF8A13 /* manWalkingAnimation_5.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10211D4929EC00FF8A13 /* manWalkingAnimation_5.png */; };
+		AD0A102E1D4961FD00FF8A13 /* foxWalkingAnimation_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10281D4961FD00FF8A13 /* foxWalkingAnimation_0.png */; };
+		AD0A102F1D4961FD00FF8A13 /* foxWalkingAnimation_1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10291D4961FD00FF8A13 /* foxWalkingAnimation_1.png */; };
+		AD0A10301D4961FD00FF8A13 /* foxWalkingAnimation_2.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A102A1D4961FD00FF8A13 /* foxWalkingAnimation_2.png */; };
+		AD0A10311D4961FD00FF8A13 /* foxWalkingAnimation_3.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A102B1D4961FD00FF8A13 /* foxWalkingAnimation_3.png */; };
+		AD0A10321D4961FD00FF8A13 /* foxWalkingAnimation_4.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A102C1D4961FD00FF8A13 /* foxWalkingAnimation_4.png */; };
+		AD0A10331D4961FD00FF8A13 /* foxWalkingAnimation_5.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A102D1D4961FD00FF8A13 /* foxWalkingAnimation_5.png */; };
 		AD0FC87E1D38059E002DCE74 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0FC87D1D38059E002DCE74 /* Map.swift */; };
 		AD2815ED1D3EC971005EB5CE /* Scenery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2815EC1D3EC971005EB5CE /* Scenery.swift */; };
 		AD51F8CF1D3E933B007132E8 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51F8CE1D3E933B007132E8 /* Enemy.swift */; };
@@ -72,6 +78,12 @@
 		AD0A101F1D4929EC00FF8A13 /* manWalkingAnimation_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manWalkingAnimation_3.png; sourceTree = "<group>"; };
 		AD0A10201D4929EC00FF8A13 /* manWalkingAnimation_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manWalkingAnimation_4.png; sourceTree = "<group>"; };
 		AD0A10211D4929EC00FF8A13 /* manWalkingAnimation_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manWalkingAnimation_5.png; sourceTree = "<group>"; };
+		AD0A10281D4961FD00FF8A13 /* foxWalkingAnimation_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_0.png; sourceTree = "<group>"; };
+		AD0A10291D4961FD00FF8A13 /* foxWalkingAnimation_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_1.png; sourceTree = "<group>"; };
+		AD0A102A1D4961FD00FF8A13 /* foxWalkingAnimation_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_2.png; sourceTree = "<group>"; };
+		AD0A102B1D4961FD00FF8A13 /* foxWalkingAnimation_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_3.png; sourceTree = "<group>"; };
+		AD0A102C1D4961FD00FF8A13 /* foxWalkingAnimation_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_4.png; sourceTree = "<group>"; };
+		AD0A102D1D4961FD00FF8A13 /* foxWalkingAnimation_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_5.png; sourceTree = "<group>"; };
 		AD0FC87D1D38059E002DCE74 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		AD2815EC1D3EC971005EB5CE /* Scenery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scenery.swift; sourceTree = "<group>"; };
 		AD51F8CE1D3E933B007132E8 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
@@ -162,17 +174,23 @@
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
 				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
-				AD0A0FF81D491F6400FF8A13 /* backgroundTile.png */,
-				AD0A0FF91D491F6400FF8A13 /* fox.png */,
-				AD0A0FFB1D491F6400FF8A13 /* projectile.png */,
-				AD0A0FFC1D491F6400FF8A13 /* rock.png */,
 				AD0A0FFD1D491F6400FF8A13 /* targetSmall.png */,
+				AD0A0FF81D491F6400FF8A13 /* backgroundTile.png */,
+				AD0A0FFC1D491F6400FF8A13 /* rock.png */,
+				AD0A0FFB1D491F6400FF8A13 /* projectile.png */,
 				AD0A101C1D4929EC00FF8A13 /* manWalkingAnimation_0.png */,
 				AD0A101D1D4929EC00FF8A13 /* manWalkingAnimation_1.png */,
 				AD0A101E1D4929EC00FF8A13 /* manWalkingAnimation_2.png */,
 				AD0A101F1D4929EC00FF8A13 /* manWalkingAnimation_3.png */,
 				AD0A10201D4929EC00FF8A13 /* manWalkingAnimation_4.png */,
 				AD0A10211D4929EC00FF8A13 /* manWalkingAnimation_5.png */,
+				AD0A0FF91D491F6400FF8A13 /* fox.png */,
+				AD0A10281D4961FD00FF8A13 /* foxWalkingAnimation_0.png */,
+				AD0A10291D4961FD00FF8A13 /* foxWalkingAnimation_1.png */,
+				AD0A102A1D4961FD00FF8A13 /* foxWalkingAnimation_2.png */,
+				AD0A102B1D4961FD00FF8A13 /* foxWalkingAnimation_3.png */,
+				AD0A102C1D4961FD00FF8A13 /* foxWalkingAnimation_4.png */,
+				AD0A102D1D4961FD00FF8A13 /* foxWalkingAnimation_5.png */,
 			);
 			path = Blizzard;
 			sourceTree = "<group>";
@@ -327,13 +345,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD0A10331D4961FD00FF8A13 /* foxWalkingAnimation_5.png in Resources */,
 				AD0A10271D4929EC00FF8A13 /* manWalkingAnimation_5.png in Resources */,
 				AD0A10031D491F6400FF8A13 /* targetSmall.png in Resources */,
 				ADDCA5CC1D3596BE00ACBCCD /* TownMenu.sks in Resources */,
+				AD0A102F1D4961FD00FF8A13 /* foxWalkingAnimation_1.png in Resources */,
 				AD0A0FFF1D491F6400FF8A13 /* fox.png in Resources */,
 				ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */,
+				AD0A102E1D4961FD00FF8A13 /* foxWalkingAnimation_0.png in Resources */,
+				AD0A10311D4961FD00FF8A13 /* foxWalkingAnimation_3.png in Resources */,
 				AD0A10261D4929EC00FF8A13 /* manWalkingAnimation_4.png in Resources */,
+				AD0A10321D4961FD00FF8A13 /* foxWalkingAnimation_4.png in Resources */,
 				AD0A10221D4929EC00FF8A13 /* manWalkingAnimation_0.png in Resources */,
+				AD0A10301D4961FD00FF8A13 /* foxWalkingAnimation_2.png in Resources */,
 				AD0A0FFE1D491F6400FF8A13 /* backgroundTile.png in Resources */,
 				AD0A10241D4929EC00FF8A13 /* manWalkingAnimation_2.png in Resources */,
 				ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */,
