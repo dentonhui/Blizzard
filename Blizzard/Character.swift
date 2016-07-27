@@ -103,28 +103,10 @@ class Character: SKSpriteNode {
     // A function to move the hero character at a constant speed
     func move (location: CGPoint) {
         
-        // Checks if the character has a move action and if so, removes it
-        if self.hasActions() {
-            self.removeActionForKey("move")
-        }
-        
-        // Calculates duration so that the character moves at a constant speed
-        let distancex = abs(self.position.x - location.x)
-        let distancey = abs(self.position.y - location.y)
-        let distance = sqrt(distancex * distancex + distancey * distancey)
-        let duration = NSTimeInterval(distance / self.moveSpeed)
-        let move = SKAction.moveTo(location, duration: duration)
-        
-        // Action after move to remove animation and switch state
-        let doneMove = (SKAction.runBlock({
-            self.removeActionForKey("walkingMan")
-            
-            // If in combat, then after moving change to combat idle
-            if self.inCombat() {self.state = .CombatIdle}
-                
-                // If not in combat, then after moving change to idle
-            else {self.state = .Idle}
-        }))
+        // If character is in combat idle, then moving changes state to combat move
+        if self.state == .CombatIdle {self.state = .CombatMove}
+            // If character is idle, then moving changes state to moving
+        else if self.state == .Idle {self.state = .Moving}
         
         // A switch case to change character orientation if it heads in a direction different from their current orientation
         switch  direction {
@@ -139,13 +121,42 @@ class Character: SKSpriteNode {
             }
         }
         
-        let moveWithDone = SKAction.sequence([move, doneMove])
-        self.runAction(moveWithDone, withKey: "move")
+        // Calculates duration so that the character moves at a constant speed
+        let distancex = abs(self.position.x - location.x)
+        let distancey = abs(self.position.y - location.y)
+        let distance = sqrt(distancex * distancex + distancey * distancey)
+        let duration = NSTimeInterval(distance / self.moveSpeed)
+        let move = SKAction.moveTo(location, duration: duration)
+        
+        // Checks if the character has a move animation and if so, removes it
+        if self.actionForKey("walkingMan") != nil {
+            self.removeActionForKey("walkingMan")
+        }
+        
+        // Runs walking animation
         walkingMan()
         
-        // If character is in combat idle, then moving changes state to combat move
-        if self.state == .CombatIdle {self.state = .CombatMove}
-            // If character is idle, then moving changes state to moving
-        else if self.state == .Idle {self.state = .Moving}
+        // Checks if the character has a move action and if so, removes it
+        if self.actionForKey("move") != nil {
+            self.removeActionForKey("move")
+        }
+        
+        // Action after move to remove animation and switch state
+        let doneMove = (SKAction.runBlock({
+            self.removeActionForKey("walkingMan")
+            self.removeActionForKey("move")
+            
+            // If in combat, then after moving change to combat idle
+            if self.inCombat() {self.state = .CombatIdle}
+                
+            // If not in combat, then after moving change to idle
+            else {self.state = .Idle}
+            
+            // Resets texture to default
+            self.texture = SKTexture(imageNamed: "manWalkingAnimation_5")
+        }))
+        
+        let moveWithDone = SKAction.sequence([move, doneMove])
+        self.runAction(moveWithDone, withKey: "move")
     }
 }
