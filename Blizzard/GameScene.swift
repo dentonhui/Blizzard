@@ -251,7 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = nodeB as! Enemy
             enemy.targeted = hero
-            enemy.state = .Combat
+            if !enemy.inCombat() {enemy.state = .Combat}
             enemy.damage += 1
             enemy.damaged()
             nodeA.removeFromParent()
@@ -261,7 +261,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = nodeA as! Enemy
             enemy.targeted = hero
-            enemy.state = .Combat
+            if !enemy.inCombat() {enemy.state = .Combat}
             enemy.damage += 1
             enemy.damaged()
             nodeB.removeFromParent()

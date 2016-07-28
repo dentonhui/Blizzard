@@ -35,7 +35,7 @@ class Enemy: SKSpriteNode {
     
     // Enemy states
     enum EnemyState {
-        case Idle, IdleMove, Combat
+        case Idle, IdleMove, Combat, CombatIdle
     }
     var state = EnemyState.Idle {
         didSet {
@@ -49,6 +49,12 @@ class Enemy: SKSpriteNode {
             // Moves enemy
             case .IdleMove:
                 self.idleMove()
+            // Wait for 2 seconds, then go to combat
+            case .CombatIdle:
+                let delay = SKAction.waitForDuration(2)
+                self.runAction(delay, completion: { () -> Void in
+                    self.state = .Combat
+                } )
             // Attacks character
             case .Combat:
                 self.removeAllActions()
@@ -82,10 +88,11 @@ class Enemy: SKSpriteNode {
         
         physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
         physicsBody?.affectedByGravity = false
+        physicsBody?.allowsRotation = false
         physicsBody?.dynamic = true
         physicsBody?.mass = 0.01
         physicsBody?.categoryBitMask = 2
-        physicsBody?.collisionBitMask = 0
+        physicsBody?.collisionBitMask = 1
         physicsBody?.contactTestBitMask = 2
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
@@ -117,11 +124,17 @@ class Enemy: SKSpriteNode {
         self.runAction(SKAction.sequence([red, restore]))
     }
     
+    // Function to return a boolean for whether or not the hero is in combat
+    func inCombat()-> Bool {
+        if self.state == .Combat || self.state == .CombatIdle {return true}
+        else {return false}
+    }
+    
     // Function to animate character
     func walkingFox() {
         var frameSpeed: NSTimeInterval = 0.2
         
-        if self.state == .Combat {frameSpeed = 0.1}
+        if self.state == .Combat {frameSpeed = 0.05}
         
         self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(foxWalkingFrames, timePerFrame: frameSpeed, resize: false, restore: false)), withKey: "walkingFox")
     }
@@ -144,7 +157,7 @@ class Enemy: SKSpriteNode {
         targetPosition!.y += 5
         
         self.walkingFox()
-        self.move(targetPosition!, speed: self.moveSpeed*2)
+        self.move(targetPosition!, speed: self.moveSpeed*4)
     }
     
     // Function to move sprite
@@ -182,7 +195,7 @@ class Enemy: SKSpriteNode {
             if self.state == .IdleMove {self.state = .Idle}
             
             // Runs CombatMove again if in combat
-            if self.state == .Combat {self.CombatMove()}
+            if self.state == .Combat {self.state = .CombatIdle}
             
         }))
         

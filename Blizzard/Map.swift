@@ -43,7 +43,7 @@ class Map: SKSpriteNode {
 //            enemy.position = CGPointMake(200, 0)
 //            self.addChild(enemy)
             
-            for i in 0...5 {
+            for i in 0...10 {
                 let enemy = Enemy(imageNamed: "fox")
                 enemy.zPosition = 10
                 enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 0)
@@ -60,19 +60,9 @@ class Map: SKSpriteNode {
             self.addChild(rock2)
 
         case (x: 0, y: 1):
-            let enemy = Enemy(imageNamed: "fox")
-            enemy.position = CGPointMake(-100, 0)
-            self.addChild(enemy)
-            
-            let enemy2 = Enemy(imageNamed: "fox")
-            enemy2.position = CGPointMake(0, 0)
-            self.addChild(enemy2)
             break
             
         case (x: 0, y: 2):
-            let enemy = Enemy(imageNamed: "fox")
-            enemy.position = CGPointMake(200, -100)
-            self.addChild(enemy)
             break
             
         default: break

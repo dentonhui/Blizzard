@@ -15,8 +15,14 @@ class Character: SKSpriteNode {
     var moveSpeed: CGFloat = 100
     
     // Controls the fire rate
-    let fireRate = 20
+    let fireRate = 50
     var fireCounter = 0
+    
+    // Variable for character health
+    let health = 100
+    
+    // A damage counter to keep track of the character's health
+    var damage = 0
     
     // Switches character sprite's visual orientation whenever the orientaiton in code changes
     enum Orientation {
@@ -98,6 +104,15 @@ class Character: SKSpriteNode {
         
         // Uses the projectile class' function to shoot at the targeted enemy
         projectile.shootProjectile(targeted!)
+    }
+    
+    // Function to flash sprite red it when damaged
+    func damaged() {
+        
+        //Turns the enemy red, then back to its original color after it is hit
+        let red = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 1.0, duration: 0.1)
+        let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
+        self.runAction(SKAction.sequence([red, restore]))
     }
     
     // Function to animate character
