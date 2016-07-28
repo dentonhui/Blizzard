@@ -12,7 +12,7 @@ import SpriteKit
 class Enemy: SKSpriteNode {
     
     // Controls move speed
-    var moveSpeed: CGFloat = 5
+    var moveSpeed: CGFloat = 50
     
     // Variable to hold the targeted character
     var targeted: Character?
@@ -20,10 +20,13 @@ class Enemy: SKSpriteNode {
     // Variable to hold walking frames
     var foxWalkingFrames: [SKTexture]!
     
+    // Variable for enemy health
+    let health = 10
+    
     // A damage counter to keep track of the enemy's health
     var damage = 0 {
         didSet {
-            if damage == 3 {
+            if damage == health {
                 self.removeAllChildren()
                 self.removeFromParent()
             }
@@ -32,9 +35,27 @@ class Enemy: SKSpriteNode {
     
     // Enemy states
     enum EnemyState {
-        case Idle, IdleMove
+        case Idle, IdleMove, Combat
     }
-    var state = EnemyState.Idle
+    var state = EnemyState.Idle {
+        didSet {
+            switch state {
+            // Wait for 2 seconds, then go to idle move
+            case .Idle:
+                let delay = SKAction.waitForDuration(2)
+                self.runAction(delay, completion: { () -> Void in
+                    self.state = .IdleMove
+                } )
+            // Moves enemy
+            case .IdleMove:
+                self.idleMove()
+            // Attacks character
+            case .Combat:
+                self.removeAllActions()
+                self.CombatMove()
+            }
+        }
+    }
     
     // Switches enemy sprite's visual orientation whenever the orientaiton in code changes
     enum Orientation {
@@ -98,20 +119,36 @@ class Enemy: SKSpriteNode {
     
     // Function to animate character
     func walkingFox() {
-        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(foxWalkingFrames, timePerFrame: 0.2, resize: false, restore: false)), withKey: "walkingFox")
+        var frameSpeed: NSTimeInterval = 0.2
+        
+        if self.state == .Combat {frameSpeed = 0.1}
+        
+        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(foxWalkingFrames, timePerFrame: frameSpeed, resize: false, restore: false)), withKey: "walkingFox")
     }
     
     func idleMove() {
         
         // Random location
-        let x = self.position.x + CGFloat(arc4random_uniform(1000)) - 500
-        let y = self.position.y + CGFloat(arc4random_uniform(1000)) - 500
+        let x = self.position.x + CGFloat(arc4random_uniform(500)) - 250
+        let y = self.position.y + CGFloat(arc4random_uniform(500)) - 250
         let location = CGPointMake(x, y)
-        self.move(location)
+        self.walkingFox()
+        self.move(location, speed: moveSpeed)
+    }
+    
+    func CombatMove() {
+        
+        // Converts target location to be in the context of the projectile's parent
+        var targetPosition = targeted!.parent?.convertPoint(targeted!.position, toNode: self.parent!)
+        targetPosition!.x += 5
+        targetPosition!.y += 5
+        
+        self.walkingFox()
+        self.move(targetPosition!, speed: self.moveSpeed*2)
     }
     
     // Function to move sprite
-    func move(location: CGPoint) {
+    func move(location: CGPoint, speed: CGFloat) {
         
         // A switch case to change character orientation if it heads in a direction different from their current orientation
         switch  direction {
@@ -129,7 +166,7 @@ class Enemy: SKSpriteNode {
         let distancex = abs(self.position.x - location.x)
         let distancey = abs(self.position.y - location.y)
         let distance = sqrt(distancex * distancex + distancey * distancey)
-        let duration = NSTimeInterval(distance / self.moveSpeed)
+        let duration = NSTimeInterval(distance / speed)
         let move = SKAction.moveTo(location, duration: duration)
 
         
@@ -140,6 +177,13 @@ class Enemy: SKSpriteNode {
             
             // Resets texture to default
             self.texture = SKTexture(imageNamed: "fox")
+            
+            // Sets enemy to idle if in idle move
+            if self.state == .IdleMove {self.state = .Idle}
+            
+            // Runs CombatMove again if in combat
+            if self.state == .Combat {self.CombatMove()}
+            
         }))
         
         let moveWithDone = SKAction.sequence([move, doneMove])

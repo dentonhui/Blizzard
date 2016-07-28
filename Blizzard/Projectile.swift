@@ -44,6 +44,7 @@ class Projectile: SKSpriteNode {
         
         // Converts target location to be in the context of the projectile's parent
         let targetPosition = target.parent?.convertPoint(target.position, toNode: self.parent!)
+        if targetPosition == nil {return}
         
         // Rotates projectile to face target location
         let dy = targetPosition!.y - self.position.y

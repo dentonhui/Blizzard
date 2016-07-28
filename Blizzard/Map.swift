@@ -45,11 +45,10 @@ class Map: SKSpriteNode {
             
             for i in 0...5 {
                 let enemy = Enemy(imageNamed: "fox")
-                enemy.zPosition = 1
+                enemy.zPosition = 10
                 enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 0)
                 self.addChild(enemy)
-                enemy.walkingFox()
-                enemy.idleMove()
+                enemy.state = .IdleMove
             }
             
             let rock = Scenery(filename: "rock")

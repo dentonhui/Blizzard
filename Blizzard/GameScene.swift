@@ -91,8 +91,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         myLabel = SKLabelNode(fontNamed: "Courier")
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         myLabel.fontSize = 45
-        hero.addChild(myLabel)
         myLabel.zPosition = 10
+        //hero.addChild(myLabel)
     }
     
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
@@ -146,7 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 hero.targeted = touchedEnemy
                 if hero.state == .Moving {
                     hero.state = .CombatMove}
-                else {
+                else if hero.state == .Idle {
                     hero.state = .CombatIdle}
             }
                 
@@ -250,18 +250,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if nodeA.name == "projectile" && nodeB.name == "enemy" {
             
             let enemy = nodeB as! Enemy
+            enemy.targeted = hero
+            enemy.state = .Combat
             enemy.damage += 1
             enemy.damaged()
             nodeA.removeFromParent()
-            if hero.targeted != nil && enemy.damage == 3 && enemy == hero.targeted! {hero.targeted = nil}
+            if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
         }
         else if nodeB.name == "projectile" && nodeA.name == "enemy" {
             
             let enemy = nodeA as! Enemy
+            enemy.targeted = hero
+            enemy.state = .Combat
             enemy.damage += 1
             enemy.damaged()
             nodeB.removeFromParent()
-            if hero.targeted != nil && enemy.damage == 3 && enemy == hero.targeted! {hero.targeted = nil}
+            if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
         }
     }
 }
