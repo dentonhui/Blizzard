@@ -130,18 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let location = touch.locationInNode(self)
             let touchedNode = nodeAtPoint(location)
-            
-            // Switches target if already in comabat
-            if touchedNode.name == "enemy"  && hero.targeted != nil {
-                let touchedEnemy = nodeAtPoint(location) as! Enemy
-                target.removeFromParent()
-                touchedEnemy.addChild(target)
-                hero.targeted = touchedEnemy
-            }
                 
             // Adds target and switches to combat
-            else if touchedNode.name == "enemy" {
+            if touchedNode.name == "enemy" {
                 let touchedEnemy = nodeAtPoint(location) as! Enemy
+                target.removeFromParent()
                 touchedEnemy.addChild(target)
                 hero.targeted = touchedEnemy
                 if hero.state == .Moving {
@@ -209,6 +202,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if hero.fireCounter % hero.fireRate == 0 {hero.shoot()}
         }
         
+        //print(hero.state)
+        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -242,7 +237,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nodeB.removeAllActions()
             
             let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
-            
             let x = (nodeB.position.x - sceneryPosition.x)/bounceLimiter
             let y = (nodeB.position.y - sceneryPosition.y)/bounceLimiter
             let vector = CGVectorMake(x, y)
@@ -279,50 +273,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let man = nodeA as! Character
             let enemy = nodeB as! Enemy
             
-            if enemy.inCombat() == false {
-                enemy.removeActionForKey("move")
-                enemy.removeActionForKey("walkingFox")
-                enemy.targeted = hero
-                enemy.state = .CombatIdle
-            }
+            enemy.aggro(man)
+            enemy.removeAllActions()
+            enemy.state = .CombatIdle
             
             man.damage += enemy.damageDealt
             man.damaged()
+            
+            let enemyPosition = currentMap.convertPoint(nodeB.position, toNode: self)
+            let x = (nodeA.position.x - enemyPosition.x)/bounceLimiter
+            let y = (nodeA.position.y - enemyPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
+            
+            nodeA.removeActionForKey("move")
+            nodeA.removeActionForKey("walkingMan")
+            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
+            target.removeFromParent()
+            hero.state = .Idle
         }
         else if nodeB.name == "man" && nodeA.name == "enemy" {
             
             let man = nodeB as! Character
             let enemy = nodeA as! Enemy
            
-            if enemy.inCombat() == false {
-                enemy.removeActionForKey("move")
-                enemy.removeActionForKey("walkingFox")
-                enemy.targeted = hero
-                enemy.state = .CombatIdle
-            }
+            enemy.aggro(man)
+            enemy.removeAllActions()
+            enemy.state = .CombatIdle
             
             man.damage += enemy.damageDealt
             man.damaged()
+            
+            let enemyPosition = currentMap.convertPoint(nodeA.position, toNode: self)
+            let x = (nodeB.position.x - enemyPosition.x)/bounceLimiter
+            let y = (nodeB.position.y - enemyPosition.y)/bounceLimiter
+            let vector = CGVectorMake(x, y)
+            
+            nodeB.removeActionForKey("move")
+            nodeB.removeActionForKey("walkingMan")
+            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
+            target.removeFromParent()
+            hero.state = .Idle
+
         }
         
         // Deals with enemy detection contact
         if nodeA.name == "man" && nodeB.name == "detect" {
             
+            let man = nodeA as! Character
             let enemy = nodeB.parent as! Enemy
             
-            enemy.removeActionForKey("move")
-            enemy.removeActionForKey("walkingFox")
-            enemy.targeted = hero
-            enemy.state = .CombatIdle
+            enemy.aggro(man)
         }
         else if nodeB.name == "man" && nodeA.name == "detect" {
             
+            let man = nodeB as! Character
             let enemy = nodeA.parent as! Enemy
             
-            enemy.removeActionForKey("move")
-            enemy.removeActionForKey("walkingFox")
-            enemy.targeted = hero
-            enemy.state = .CombatIdle
+            enemy.aggro(man)
         }
     }
     

@@ -148,6 +148,16 @@ class Enemy: SKSpriteNode {
         else {return false}
     }
     
+    // Function to enter combat
+    func aggro(man: Character) {
+        if self.inCombat() == false {
+            self.removeActionForKey("move")
+            self.removeActionForKey("walkingFox")
+            self.targeted = man
+            self.state = .CombatIdle
+        }
+    }
+    
     // Function to animate character
     func walkingFox() {
         var frameSpeed: NSTimeInterval = 0.2
