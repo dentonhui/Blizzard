@@ -25,9 +25,9 @@ class Projectile: SKSpriteNode {
         self.physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.allowsRotation = false
-        self.physicsBody?.categoryBitMask = 2
+        self.physicsBody?.categoryBitMask = 0
         self.physicsBody?.collisionBitMask = 0
-        self.physicsBody?.contactTestBitMask = 2
+        self.physicsBody?.contactTestBitMask = 4
         self.zPosition = 10
         self.anchorPoint = CGPoint(x: 0.5,y: 0.5)
         

@@ -26,7 +26,7 @@ class GameOver: SKScene {
             let skView = self.view as SKView!
             
             /* Load Game scene */
-            let scene = GameScene(fileNamed:"MainScene") as GameScene!
+            let scene = MainScene(fileNamed:"MainScene") as MainScene!
             
             /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFit

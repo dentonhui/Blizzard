@@ -26,6 +26,9 @@ class Enemy: SKSpriteNode {
     // Variable for enemy damage dealt
     let damageDealt = 5
     
+    // Detection node
+    var detectNode = SKNode()
+    
     // A damage counter to keep track of the enemy's health
     var damage = 0 {
         didSet {
@@ -86,22 +89,15 @@ class Enemy: SKSpriteNode {
         let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        //size = CGSize(width: 200, height: 160)
-        //self.size = size
-        
         physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
         physicsBody?.dynamic = true
-        physicsBody?.mass = 0.01
-        physicsBody?.categoryBitMask = 2
+        physicsBody?.categoryBitMask = 4
         physicsBody?.collisionBitMask = 1
         physicsBody?.contactTestBitMask = 1
-        anchorPoint = CGPoint(x: 0.5,y: 0.5)
-        
-        
+        self.anchorPoint = CGPoint(x: 0.5,y: 0.5)
         self.name = "enemy"
-
         self.zPosition = 1
         
         // Initilizes walking frames
@@ -112,10 +108,29 @@ class Enemy: SKSpriteNode {
             walkFrames.append(walkFrame)
         }
         foxWalkingFrames = walkFrames
+        
+        // Adds detector node
+        self.addDetect()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    
+    // Adds an epty node to the front of the enemy which triggers combat if the hero collides with it
+    func addDetect() {
+        
+        detectNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.size.width*2, height: self.size.height*2))
+        detectNode.physicsBody?.affectedByGravity = false
+        detectNode.physicsBody?.dynamic = true
+        detectNode.physicsBody?.categoryBitMask = 0
+        detectNode.physicsBody?.collisionBitMask = 0
+        detectNode.physicsBody?.contactTestBitMask = 1
+        detectNode.position = CGPointMake(-self.size.width, 0)
+        detectNode.zPosition = 10
+        detectNode.name = "detect"
+        self.addChild(detectNode)
     }
     
     // Function to flash sprite red it when damaged
@@ -200,9 +215,12 @@ class Enemy: SKSpriteNode {
             // Runs CombatMove again if in combat
             if self.state == .Combat {self.state = .CombatIdle}
             
+            self.detectNode.position = CGPointMake(-self.size.width, 0)
+            
         }))
         
         let moveWithDone = SKAction.sequence([move, doneMove])
         self.runAction(moveWithDone, withKey: "move")
     }
+    
 }

@@ -226,7 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let bounceLimiter: CGFloat = 6
         
-        // Stops character from moving if it hits a rock
+        // Deals with scenery contacts
         if nodeA.name == "man" && nodeB.name == "scenery" {
             nodeA.removeAllActions()
             
@@ -279,10 +279,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let man = nodeA as! Character
             let enemy = nodeB as! Enemy
             
-            enemy.removeActionForKey("move")
-            enemy.removeActionForKey("walkingFox")
-            enemy.targeted = hero
-            enemy.state = .CombatIdle
+            if enemy.inCombat() == false {
+                enemy.removeActionForKey("move")
+                enemy.removeActionForKey("walkingFox")
+                enemy.targeted = hero
+                enemy.state = .CombatIdle
+            }
             
             man.damage += enemy.damageDealt
             man.damaged()
@@ -292,13 +294,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let man = nodeB as! Character
             let enemy = nodeA as! Enemy
            
+            if enemy.inCombat() == false {
+                enemy.removeActionForKey("move")
+                enemy.removeActionForKey("walkingFox")
+                enemy.targeted = hero
+                enemy.state = .CombatIdle
+            }
+            
+            man.damage += enemy.damageDealt
+            man.damaged()
+        }
+        
+        // Deals with enemy detection contact
+        if nodeA.name == "man" && nodeB.name == "detect" {
+            
+            let enemy = nodeB.parent as! Enemy
+            
             enemy.removeActionForKey("move")
             enemy.removeActionForKey("walkingFox")
             enemy.targeted = hero
             enemy.state = .CombatIdle
+        }
+        else if nodeB.name == "man" && nodeA.name == "detect" {
             
-            man.damage += enemy.damageDealt
-            man.damaged()
+            let enemy = nodeA.parent as! Enemy
+            
+            enemy.removeActionForKey("move")
+            enemy.removeActionForKey("walkingFox")
+            enemy.targeted = hero
+            enemy.state = .CombatIdle
         }
     }
     
