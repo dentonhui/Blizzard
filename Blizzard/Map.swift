@@ -38,10 +38,6 @@ class Map: SKSpriteNode {
         switch number {
             
         case (x: 0, y: 0):
-//            var enemy = Enemy()
-//            enemy.zPosition = 1
-//            enemy.position = CGPointMake(200, 0)
-//            self.addChild(enemy)
             
             for i in 0...10 {
                 let enemy = Enemy(imageNamed: "fox")

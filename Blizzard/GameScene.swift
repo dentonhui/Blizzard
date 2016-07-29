@@ -189,6 +189,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Updates which map the character is currently on
         currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
         
+        // Check for game over
+        if hero.damage >= hero.health {
+            gameOver()
+        }
+        
         // Updates label for which map the character is currently on
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
@@ -267,5 +272,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nodeB.removeFromParent()
             if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
         }
+        
+        // Deals with enemy contacts
+        if nodeA.name == "man" && nodeB.name == "enemy" {
+            
+            let man = nodeA as! Character
+            let enemy = nodeB as! Enemy
+            
+            enemy.removeActionForKey("move")
+            enemy.removeActionForKey("walkingFox")
+            enemy.targeted = hero
+            enemy.state = .CombatIdle
+            
+            man.damage += enemy.damageDealt
+            man.damaged()
+        }
+        else if nodeB.name == "man" && nodeA.name == "enemy" {
+            
+            let man = nodeB as! Character
+            let enemy = nodeA as! Enemy
+           
+            enemy.removeActionForKey("move")
+            enemy.removeActionForKey("walkingFox")
+            enemy.targeted = hero
+            enemy.state = .CombatIdle
+            
+            man.damage += enemy.damageDealt
+            man.damaged()
+        }
+    }
+    
+    // Shows game over screen
+    func gameOver() {
+        
+        /* Grab reference to our SpriteKit view */
+        let skView = self.view as SKView!
+        
+        /* Load Game scene */
+        let scene = GameOver(fileNamed:"GameOver") as GameOver!
+        
+        /* Ensure correct aspect mode */
+        scene.scaleMode = .AspectFit
+        
+        /* Show debug */
+        skView.showsPhysics = true
+        skView.showsDrawCount = true
+        skView.showsFPS = true
+        
+        /* Start game scene */
+        skView.presentScene(scene)
     }
 }

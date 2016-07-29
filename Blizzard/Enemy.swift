@@ -23,6 +23,9 @@ class Enemy: SKSpriteNode {
     // Variable for enemy health
     let health = 10
     
+    // Variable for enemy damage dealt
+    let damageDealt = 5
+    
     // A damage counter to keep track of the enemy's health
     var damage = 0 {
         didSet {
@@ -93,7 +96,7 @@ class Enemy: SKSpriteNode {
         physicsBody?.mass = 0.01
         physicsBody?.categoryBitMask = 2
         physicsBody?.collisionBitMask = 1
-        physicsBody?.contactTestBitMask = 2
+        physicsBody?.contactTestBitMask = 1
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
         

@@ -19,7 +19,7 @@ class Character: SKSpriteNode {
     var fireCounter = 0
     
     // Variable for character health
-    let health = 100
+    let health = 50
     
     // A damage counter to keep track of the character's health
     var damage = 0
