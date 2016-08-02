@@ -29,8 +29,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Target indicator
     var target: SKSpriteNode!
     
+    // Bounce limiter for contact
+    let bounceLimiter: CGFloat = 6
+    
     // Max number of maps on one side. Number of total maps will be (max + 1)^2
-    let max = 2
+    let max = 0
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -219,15 +222,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeA = contactA.node!
         let nodeB = contactB.node!
         
-        let bounceLimiter: CGFloat = 6
-        
         // Deals with scenery contacts
         if nodeA.name == "man" && nodeB.name == "scenery" {
             nodeA.removeAllActions()
             
             let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
-            let x = (nodeA.position.x - sceneryPosition.x)/bounceLimiter
-            let y = (nodeA.position.y - sceneryPosition.y)/bounceLimiter
+            let x = (nodeA.position.x - sceneryPosition.x)/3/bounceLimiter
+            let y = (nodeA.position.y - sceneryPosition.y)/1.5/bounceLimiter
             let vector = CGVectorMake(x, y)
             
             nodeA.runAction(SKAction.moveBy(vector, duration: 0))
@@ -237,8 +238,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nodeB.removeAllActions()
             
             let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
-            let x = (nodeB.position.x - sceneryPosition.x)/bounceLimiter
-            let y = (nodeB.position.y - sceneryPosition.y)/bounceLimiter
+            let x = (nodeB.position.x - sceneryPosition.x)/3/bounceLimiter
+            let y = (nodeB.position.y - sceneryPosition.y)/1.5/bounceLimiter
             let vector = CGVectorMake(x, y)
             
             nodeB.runAction(SKAction.moveBy(vector, duration: 0))
@@ -272,48 +273,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let man = nodeA as! Character
             let enemy = nodeB as! Enemy
-            
-            enemy.aggro(man)
-            enemy.removeAllActions()
-            enemy.state = .CombatIdle
-            
-            man.damage += enemy.damageDealt
-            man.damaged()
-            
-            let enemyPosition = currentMap.convertPoint(nodeB.position, toNode: self)
-            let x = (nodeA.position.x - enemyPosition.x)/bounceLimiter
-            let y = (nodeA.position.y - enemyPosition.y)/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeA.removeActionForKey("move")
-            nodeA.removeActionForKey("walkingMan")
-            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
-            target.removeFromParent()
-            hero.state = .Idle
+            characterEnemyConatact(man, enemy: enemy)
         }
         else if nodeB.name == "man" && nodeA.name == "enemy" {
             
             let man = nodeB as! Character
             let enemy = nodeA as! Enemy
-           
-            enemy.aggro(man)
-            enemy.removeAllActions()
-            enemy.state = .CombatIdle
-            
-            man.damage += enemy.damageDealt
-            man.damaged()
-            
-            let enemyPosition = currentMap.convertPoint(nodeA.position, toNode: self)
-            let x = (nodeB.position.x - enemyPosition.x)/bounceLimiter
-            let y = (nodeB.position.y - enemyPosition.y)/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeB.removeActionForKey("move")
-            nodeB.removeActionForKey("walkingMan")
-            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
-            target.removeFromParent()
-            hero.state = .Idle
-
+            characterEnemyConatact(man, enemy: enemy)
         }
         
         // Deals with enemy detection contact
@@ -331,6 +297,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             enemy.aggro(man)
         }
+    }
+    
+    // Function for character contact with enemy
+    func characterEnemyConatact(man: Character, enemy: Enemy) {
+        
+        enemy.aggro(man)
+        enemy.removeAllActions()
+        enemy.state = .CombatIdle
+        
+        man.damage += enemy.damageDealt
+        man.damaged()
+        
+        let enemyPosition = currentMap.convertPoint(enemy.position, toNode: self)
+        let x = (man.position.x - enemyPosition.x)/bounceLimiter
+        let y = (man.position.y - enemyPosition.y)/bounceLimiter
+        let vector = CGVectorMake(x, y)
+        
+        man.removeActionForKey("move")
+        man.removeActionForKey("walkingMan")
+        man.runAction(SKAction.moveBy(vector, duration: 0))
+        target.removeFromParent()
+        man.state = .Idle
+        
+        let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
+        enemy.runAction(restore)
+
     }
     
     // Shows game over screen

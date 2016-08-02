@@ -16,8 +16,15 @@ class Scenery: SKSpriteNode {
         let texture = SKTexture(imageNamed: filename)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        size = CGSize(width: texture.size().width * 2, height: texture.size().height*2)
-        physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        size = CGSize(width: texture.size().width, height: texture.size().height)
+        physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
+        self.zPosition = 10
+        
+        if filename == "forest" {
+            let size2 = CGSize(width: size.width/1.05, height: size.height/1.25)
+            physicsBody = SKPhysicsBody(rectangleOfSize: size2)
+            self.zPosition = 11
+        }
         
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
@@ -29,7 +36,6 @@ class Scenery: SKSpriteNode {
         
         self.name = "scenery"
         
-        self.zPosition = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

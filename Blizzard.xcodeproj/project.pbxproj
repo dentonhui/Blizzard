@@ -10,7 +10,6 @@
 		AD0A0FFE1D491F6400FF8A13 /* backgroundTile.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A0FF81D491F6400FF8A13 /* backgroundTile.png */; };
 		AD0A0FFF1D491F6400FF8A13 /* fox.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A0FF91D491F6400FF8A13 /* fox.png */; };
 		AD0A10011D491F6400FF8A13 /* projectile.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A0FFB1D491F6400FF8A13 /* projectile.png */; };
-		AD0A10021D491F6400FF8A13 /* rock.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A0FFC1D491F6400FF8A13 /* rock.png */; };
 		AD0A10031D491F6400FF8A13 /* targetSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A0FFD1D491F6400FF8A13 /* targetSmall.png */; };
 		AD0A10221D4929EC00FF8A13 /* manWalkingAnimation_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A101C1D4929EC00FF8A13 /* manWalkingAnimation_0.png */; };
 		AD0A10231D4929EC00FF8A13 /* manWalkingAnimation_1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A101D1D4929EC00FF8A13 /* manWalkingAnimation_1.png */; };
@@ -26,6 +25,9 @@
 		AD0A10331D4961FD00FF8A13 /* foxWalkingAnimation_5.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A102D1D4961FD00FF8A13 /* foxWalkingAnimation_5.png */; };
 		AD0A10351D4BC23B00FF8A13 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0A10341D4BC23B00FF8A13 /* GameOver.swift */; };
 		AD0A10371D4BC25500FF8A13 /* GameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10361D4BC25500FF8A13 /* GameOver.sks */; };
+		AD0A10391D4FC72C00FF8A13 /* rock.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A10381D4FC72C00FF8A13 /* rock.png */; };
+		AD0A103D1D51069700FF8A13 /* tree1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A103C1D51069700FF8A13 /* tree1.png */; };
+		AD0A103F1D51126600FF8A13 /* forest.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0A103E1D51126600FF8A13 /* forest.png */; };
 		AD0FC87E1D38059E002DCE74 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0FC87D1D38059E002DCE74 /* Map.swift */; };
 		AD2815ED1D3EC971005EB5CE /* Scenery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2815EC1D3EC971005EB5CE /* Scenery.swift */; };
 		AD51F8CF1D3E933B007132E8 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51F8CE1D3E933B007132E8 /* Enemy.swift */; };
@@ -45,9 +47,7 @@
 		ADDCA5C41D3590AF00ACBCCD /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */; };
 		ADDCA5C81D35963A00ACBCCD /* GameMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C71D35963A00ACBCCD /* GameMenu.sks */; };
 		ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */; };
-		ADDCA5CC1D3596BE00ACBCCD /* TownMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */; };
 		ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */; };
-		ADDCA5D01D35B0A000ACBCCD /* TownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5CF1D35B0A000ACBCCD /* TownMenu.swift */; };
 		ADDCA5D21D35B0AD00ACBCCD /* InventoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,6 @@
 		AD0A0FF81D491F6400FF8A13 /* backgroundTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundTile.png; sourceTree = "<group>"; };
 		AD0A0FF91D491F6400FF8A13 /* fox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fox.png; sourceTree = "<group>"; };
 		AD0A0FFB1D491F6400FF8A13 /* projectile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectile.png; sourceTree = "<group>"; };
-		AD0A0FFC1D491F6400FF8A13 /* rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock.png; sourceTree = "<group>"; };
 		AD0A0FFD1D491F6400FF8A13 /* targetSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = targetSmall.png; sourceTree = "<group>"; };
 		AD0A101C1D4929EC00FF8A13 /* manWalkingAnimation_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manWalkingAnimation_0.png; sourceTree = "<group>"; };
 		AD0A101D1D4929EC00FF8A13 /* manWalkingAnimation_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manWalkingAnimation_1.png; sourceTree = "<group>"; };
@@ -88,6 +87,9 @@
 		AD0A102D1D4961FD00FF8A13 /* foxWalkingAnimation_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foxWalkingAnimation_5.png; sourceTree = "<group>"; };
 		AD0A10341D4BC23B00FF8A13 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		AD0A10361D4BC25500FF8A13 /* GameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOver.sks; sourceTree = "<group>"; };
+		AD0A10381D4FC72C00FF8A13 /* rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock.png; sourceTree = "<group>"; };
+		AD0A103C1D51069700FF8A13 /* tree1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree1.png; sourceTree = "<group>"; };
+		AD0A103E1D51126600FF8A13 /* forest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forest.png; sourceTree = "<group>"; };
 		AD0FC87D1D38059E002DCE74 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		AD2815EC1D3EC971005EB5CE /* Scenery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scenery.swift; sourceTree = "<group>"; };
 		AD51F8CE1D3E933B007132E8 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
@@ -113,9 +115,7 @@
 		ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
 		ADDCA5C71D35963A00ACBCCD /* GameMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameMenu.sks; sourceTree = "<group>"; };
 		ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InventoryMenu.sks; sourceTree = "<group>"; };
-		ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TownMenu.sks; sourceTree = "<group>"; };
 		ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
-		ADDCA5CF1D35B0A000ACBCCD /* TownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TownMenu.swift; sourceTree = "<group>"; };
 		ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,9 +178,11 @@
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
 				ADDCA5961D34645200ACBCCD /* Assets.xcassets */,
+				AD0A103C1D51069700FF8A13 /* tree1.png */,
+				AD0A103E1D51126600FF8A13 /* forest.png */,
+				AD0A10381D4FC72C00FF8A13 /* rock.png */,
 				AD0A0FFD1D491F6400FF8A13 /* targetSmall.png */,
 				AD0A0FF81D491F6400FF8A13 /* backgroundTile.png */,
-				AD0A0FFC1D491F6400FF8A13 /* rock.png */,
 				AD0A0FFB1D491F6400FF8A13 /* projectile.png */,
 				AD0A101C1D4929EC00FF8A13 /* manWalkingAnimation_0.png */,
 				AD0A101D1D4929EC00FF8A13 /* manWalkingAnimation_1.png */,
@@ -236,8 +238,6 @@
 				ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */,
 				ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */,
 				ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */,
-				ADDCA5CB1D3596BE00ACBCCD /* TownMenu.sks */,
-				ADDCA5CF1D35B0A000ACBCCD /* TownMenu.swift */,
 				ADDCA5C31D3590AF00ACBCCD /* MainScene.sks */,
 				ADDCA5BF1D358FE200ACBCCD /* MainScene.swift */,
 				AD0A10361D4BC25500FF8A13 /* GameOver.sks */,
@@ -352,9 +352,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD0A10331D4961FD00FF8A13 /* foxWalkingAnimation_5.png in Resources */,
+				AD0A10391D4FC72C00FF8A13 /* rock.png in Resources */,
 				AD0A10271D4929EC00FF8A13 /* manWalkingAnimation_5.png in Resources */,
 				AD0A10031D491F6400FF8A13 /* targetSmall.png in Resources */,
-				ADDCA5CC1D3596BE00ACBCCD /* TownMenu.sks in Resources */,
 				AD0A102F1D4961FD00FF8A13 /* foxWalkingAnimation_1.png in Resources */,
 				AD0A0FFF1D491F6400FF8A13 /* fox.png in Resources */,
 				ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */,
@@ -364,6 +364,7 @@
 				AD0A10261D4929EC00FF8A13 /* manWalkingAnimation_4.png in Resources */,
 				AD0A10321D4961FD00FF8A13 /* foxWalkingAnimation_4.png in Resources */,
 				AD0A10221D4929EC00FF8A13 /* manWalkingAnimation_0.png in Resources */,
+				AD0A103F1D51126600FF8A13 /* forest.png in Resources */,
 				AD0A10301D4961FD00FF8A13 /* foxWalkingAnimation_2.png in Resources */,
 				AD0A0FFE1D491F6400FF8A13 /* backgroundTile.png in Resources */,
 				AD0A10241D4929EC00FF8A13 /* manWalkingAnimation_2.png in Resources */,
@@ -372,9 +373,9 @@
 				ADDCA5C41D3590AF00ACBCCD /* MainScene.sks in Resources */,
 				ADDCA5971D34645200ACBCCD /* Assets.xcassets in Resources */,
 				ADDCA5C81D35963A00ACBCCD /* GameMenu.sks in Resources */,
-				AD0A10021D491F6400FF8A13 /* rock.png in Resources */,
 				AD0A10011D491F6400FF8A13 /* projectile.png in Resources */,
 				AD0A10231D4929EC00FF8A13 /* manWalkingAnimation_1.png in Resources */,
+				AD0A103D1D51069700FF8A13 /* tree1.png in Resources */,
 				ADDCA5951D34645200ACBCCD /* Main.storyboard in Resources */,
 				AD0A10251D4929EC00FF8A13 /* manWalkingAnimation_3.png in Resources */,
 			);
@@ -413,7 +414,6 @@
 				AD0A10351D4BC23B00FF8A13 /* GameOver.swift in Sources */,
 				ADDCA5C01D358FE200ACBCCD /* MainScene.swift in Sources */,
 				ADDCA5D21D35B0AD00ACBCCD /* InventoryMenu.swift in Sources */,
-				ADDCA5D01D35B0A000ACBCCD /* TownMenu.swift in Sources */,
 				ADDCA5BE1D34648700ACBCCD /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

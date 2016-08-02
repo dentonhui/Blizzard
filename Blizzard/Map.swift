@@ -33,27 +33,42 @@ class Map: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
+    func addTo(scenery: Scenery, x: CGFloat, y: CGFloat) {
+        scenery.position = CGPointMake(x, y)
+        self.addChild(scenery)
+    }
+    
     // Instructions for each of the maps
     func populateMap() {
         switch number {
             
         case (x: 0, y: 0):
             
-            for i in 0...10 {
-                let enemy = Enemy(imageNamed: "fox")
-                enemy.zPosition = 10
-                enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 0)
-                self.addChild(enemy)
-                enemy.state = .IdleMove
-            }
+//            for i in 0...10 {
+//                let enemy = Enemy(imageNamed: "fox")
+//                enemy.zPosition = 10
+//                enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 400)
+//                self.addChild(enemy)
+//                enemy.state = .IdleMove
+//            }
             
-            let rock = Scenery(filename: "rock")
-            rock.position = CGPointMake(-200,200)
-            self.addChild(rock)
+            var tree: Scenery
             
-            let rock2 = Scenery(filename: "rock")
-            rock2.position = CGPointMake(-270,190)
-            self.addChild(rock2)
+            tree = Scenery(filename: "forest")
+            addTo(tree, x: -300, y: 0)
+            
+            tree = Scenery(filename: "forest")
+            addTo(tree, x: -250, y: -50)
+            
+            tree = Scenery(filename: "forest")
+            addTo(tree, x: 400, y: 0)
+            
+            tree = Scenery(filename: "forest")
+            addTo(tree, x: 400, y: -180)
+            
+            tree = Scenery(filename: "forest")
+            addTo(tree, x: 20, y: -180)
+            
 
         case (x: 0, y: 1):
             break

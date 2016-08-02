@@ -63,7 +63,7 @@ class Character: SKSpriteNode {
         let texture = SKTexture(imageNamed: "manWalkingAnimation_5")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: texture.size().width/2, height: texture.size().height))
+        physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: texture.size().width/3, height: texture.size().height/1.5))
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
         physicsBody?.dynamic = true
