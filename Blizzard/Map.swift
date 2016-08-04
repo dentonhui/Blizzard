@@ -44,13 +44,12 @@ class Map: SKSpriteNode {
             
         case (x: 0, y: 0):
             
-//            for i in 0...10 {
-//                let enemy = Enemy(imageNamed: "fox")
-//                enemy.zPosition = 10
-//                enemy.position = CGPointMake(200 + enemy.size.width*CGFloat(i), 400)
-//                self.addChild(enemy)
-//                enemy.state = .IdleMove
-//            }
+            for i in 0...0 {
+                let position = CGPointMake(200 + 64*CGFloat(i), 200)
+                let enemy = Enemy(imageNamed: "fox", sPosition: position)
+                self.addChild(enemy)
+                enemy.state = .IdleMove
+            }
             
             var tree: Scenery
             
@@ -68,7 +67,6 @@ class Map: SKSpriteNode {
             
             tree = Scenery(filename: "forest")
             addTo(tree, x: 20, y: -180)
-            
 
         case (x: 0, y: 1):
             break

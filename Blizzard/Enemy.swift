@@ -14,6 +14,9 @@ class Enemy: SKSpriteNode {
     // Controls move speed
     var moveSpeed: CGFloat = 50
     
+    // Span position
+    var spawnPosition: CGPoint!
+    
     // Variable to hold the targeted character
     var targeted: Character?
     
@@ -85,9 +88,13 @@ class Enemy: SKSpriteNode {
     }
     
     // Sets up the enemy
-    init(imageNamed: String) {
+    init(imageNamed: String, sPosition: CGPoint) {
         let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        spawnPosition = sPosition
+        self.position = spawnPosition
+        self.zPosition = 10
         
         physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
         physicsBody?.affectedByGravity = false
@@ -170,8 +177,18 @@ class Enemy: SKSpriteNode {
     func idleMove() {
         
         // Random location
-        let x = self.position.x + CGFloat(arc4random_uniform(500)) - 250
-        let y = self.position.y + CGFloat(arc4random_uniform(500)) - 250
+        var randX = CGFloat(arc4random_uniform(100)) - 50
+        var randY = CGFloat(arc4random_uniform(100)) - 50
+        var x = self.position.x + randX
+        if abs(x) > spawnPosition.x + 50 {
+            randX *= -1
+            x = self.position.x + randX
+        }
+        var y = self.position.y + randY
+        if abs(y) > spawnPosition.y + 50 {
+            randY *= -1
+            y = self.position.y + randY
+        }
         let location = CGPointMake(x, y)
         self.walkingFox()
         self.move(location, speed: moveSpeed)
