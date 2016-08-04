@@ -224,26 +224,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Deals with scenery contacts
         if nodeA.name == "man" && nodeB.name == "scenery" {
-            nodeA.removeAllActions()
+            let man = nodeA as! Character
+            let scenery = nodeB as! Scenery
             
-            let sceneryPosition = currentMap.convertPoint(nodeB.position, toNode: self)
-            let x = (nodeA.position.x - sceneryPosition.x)/3/bounceLimiter
-            let y = (nodeA.position.y - sceneryPosition.y)/1.5/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeA.runAction(SKAction.moveBy(vector, duration: 0))
-            hero.state = .Idle
+            characterSceneryContact(man, scenery: scenery)
         }
         else if nodeB.name == "man" && nodeA.name == "scenery" {
-            nodeB.removeAllActions()
+            let man = nodeB as! Character
+            let scenery = nodeA as! Scenery
             
-            let sceneryPosition = currentMap.convertPoint(nodeA.position, toNode: self)
-            let x = (nodeB.position.x - sceneryPosition.x)/3/bounceLimiter
-            let y = (nodeB.position.y - sceneryPosition.y)/1.5/bounceLimiter
-            let vector = CGVectorMake(x, y)
-            
-            nodeB.runAction(SKAction.moveBy(vector, duration: 0))
-            hero.state = .Idle
+            characterSceneryContact(man, scenery: scenery)
         }
         
         // Deals with projectile contacts
@@ -296,6 +286,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let enemy = nodeA.parent as! Enemy
             
             enemy.aggro(man)
+        }
+    }
+    
+    // Function for character contact with scenery
+    func characterSceneryContact(man: Character, scenery: Scenery) {
+        
+        man.removeActionForKey("move")
+        man.removeActionForKey("walkingMan")
+        man.removeActionForKey("bounce")
+        
+        let sceneryPosition = currentMap.convertPoint(scenery.position, toNode: self)
+        let x = (man.position.x - sceneryPosition.x)/3/bounceLimiter
+        let y = (man.position.y - sceneryPosition.y)/1.5/bounceLimiter
+        let vector = CGVectorMake(x, y)
+        
+        man.runAction(SKAction.moveBy(vector, duration: 0), withKey: "bounce")
+        
+        if man.inCombat() {
+            man.state = .CombatIdle
+        }
+        else {
+            man.state = .Idle
         }
     }
     
