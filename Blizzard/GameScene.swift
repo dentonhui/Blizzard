@@ -211,81 +211,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        //Creates variables for the two objects that contact
+        // Creates variables for the two objects that contact
         let contactA: SKPhysicsBody = contact.bodyA
         let contactB: SKPhysicsBody = contact.bodyB
         
-        //Returns if the any of the nodes are nil to prevent crashing
+        // Returns if the any of the nodes are nil to prevent crashing
         if contactA.node == nil || contactB.node == nil {return}
         
-        //Creates variables for the unwrapped nodes
+        // Creates variables for the unwrapped nodes
         let nodeA = contactA.node!
         let nodeB = contactB.node!
         
-        // Deals with scenery contacts
-        if nodeA.name == "man" && nodeB.name == "scenery" {
-            let man = nodeA as! Character
-            let scenery = nodeB as! Scenery
-            
-            characterSceneryContact(man, scenery: scenery)
-        }
-        else if nodeB.name == "man" && nodeA.name == "scenery" {
-            let man = nodeB as! Character
-            let scenery = nodeA as! Scenery
-            
-            characterSceneryContact(man, scenery: scenery)
+        // Tests different collisions
+        testCollision(nodeA, nodeB: nodeB)
+        testCollision(nodeB, nodeB: nodeA)
+    }
+    
+    func testCollision (nodeA: SKNode, nodeB: SKNode) {
+        
+        if let man = nodeA as? Character {
+            // Scenery contact
+            if let scenery = nodeB as? Scenery {
+                characterSceneryContact(man, scenery: scenery)
+            }
+            // Enemy contact
+            else if let enemy = nodeB as? Enemy {
+                characterEnemyConatact(man, enemy: enemy)
+            }
+            // Enemy detection contact
+            else if nodeB.name == "detect" {
+                let enemy = nodeB.parent as! Enemy
+                enemy.aggro(man)
+            }
         }
         
-        // Deals with projectile contacts
-        if nodeA.name == "projectile" && nodeB.name == "enemy" {
-            
-            let enemy = nodeB as! Enemy
-            enemy.targeted = hero
-            if !enemy.inCombat() {enemy.state = .Combat}
-            enemy.damage += 1
-            enemy.damaged()
-            nodeA.removeFromParent()
-            if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
-        }
-        else if nodeB.name == "projectile" && nodeA.name == "enemy" {
-            
-            let enemy = nodeA as! Enemy
-            enemy.targeted = hero
-            if !enemy.inCombat() {enemy.state = .Combat}
-            enemy.damage += 1
-            enemy.damaged()
-            nodeB.removeFromParent()
-            if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
-        }
-        
-        // Deals with enemy contacts
-        if nodeA.name == "man" && nodeB.name == "enemy" {
-            
-            let man = nodeA as! Character
-            let enemy = nodeB as! Enemy
-            characterEnemyConatact(man, enemy: enemy)
-        }
-        else if nodeB.name == "man" && nodeA.name == "enemy" {
-            
-            let man = nodeB as! Character
-            let enemy = nodeA as! Enemy
-            characterEnemyConatact(man, enemy: enemy)
-        }
-        
-        // Deals with enemy detection contact
-        if nodeA.name == "man" && nodeB.name == "detect" {
-            
-            let man = nodeA as! Character
-            let enemy = nodeB.parent as! Enemy
-            
-            enemy.aggro(man)
-        }
-        else if nodeB.name == "man" && nodeA.name == "detect" {
-            
-            let man = nodeB as! Character
-            let enemy = nodeA.parent as! Enemy
-            
-            enemy.aggro(man)
+        // Projectile enemy contact
+        if let projectile = nodeA as? Projectile {
+            if let enemy = nodeB as? Enemy {
+                projectileContact(projectile, enemy: enemy)
+            }
         }
     }
     
@@ -335,6 +299,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)
 
+    }
+    
+    // Function for projectile contact
+    func projectileContact(projectile: Projectile, enemy: Enemy) {
+        
+        enemy.targeted = hero
+        if !enemy.inCombat() {enemy.state = .Combat}
+        enemy.damage += 1
+        enemy.damaged()
+        projectile.removeFromParent()
+        if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
     }
     
     // Shows game over screen
