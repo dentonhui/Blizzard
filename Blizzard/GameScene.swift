@@ -46,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero.zPosition = 1
         self.addChild(hero)
         self.camera = cam
-        hero.addChild(self.camera!)
+        self.addChild(self.camera!)
         
         // Set up target indicator
         target = SKSpriteNode(imageNamed: "targetSmall")
@@ -166,15 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if distanceMoved.x > 650 || distanceMoved.y > 650 {
                     distanceMoved = CGPointMake(0, 0)
                     checkMap()
-                }
-                
-                // Makes sure camera doesn't flip
-                if hero.direction == .Right {
-                    self.camera?.xScale = 1
-                }
-                else {
-                    self.camera?.xScale = -1
-                }
+                }                
             }
         }
     }
@@ -193,12 +185,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOver()
         }
         
-//        // Set camera position to follow target horizontally, keep vertical locked 
-//        camera?.position = CGPoint(x:cameraTarget.position.x, y:cameraTarget.position.y)
-//        
-//        // Clamps camera
-//        camera?.position.x.clamp(0, 650*3*CGFloat(max+1))
-//        camera?.position.y.clamp(0, 650*3*CGFloat(max+1))
+        // Moves camera to character
+        camera?.position = hero.position
+
+        // Clamps camera
+        camera?.position.x.clamp(self.frame.size.width/2, 650*3*CGFloat(max+1) - self.frame.size.width/2)
+        camera?.position.y.clamp(self.frame.size.height/2, 650*3*CGFloat(max+1) - self.frame.size.height/2)
         
         // If the character either: has no actions and is not in combat, or is in combat and has no target, then switch to idle
         if (!hero.hasActions() && !hero.inCombat()) ||
@@ -225,7 +217,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        print(hero.state)
+        //print(hero.state)
         
     }
     
@@ -332,7 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scene.scaleMode = .AspectFit
         
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
         
