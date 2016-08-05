@@ -14,6 +14,9 @@ class Character: SKSpriteNode {
     // Controls move speed
     var moveSpeed: CGFloat = 100
     
+    // Move location
+    var moveLocation: CGPoint!
+    
     // Controls the fire rate
     let fireRate = 50
     var fireCounter = 0
@@ -45,6 +48,13 @@ class Character: SKSpriteNode {
     }
     var state = HeroState.Idle {
         didSet {
+            // Sets move location to nil and veloctiy to 0 if in idle
+            if state == .Idle || state == .CombatIdle{
+                self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+                self.removeActionForKey("walkingMan")
+                self.texture = SKTexture(imageNamed: "manWalkingAnimation_5")
+                self.moveLocation = nil
+            }
             // Runs the walking animation everytime the state changes to moving or combat move
             if state == .Moving || state == .CombatMove {
                 self.walkingMan()
@@ -126,6 +136,10 @@ class Character: SKSpriteNode {
         // Checks if the character has a move action and if so, removes it
         self.removeActionForKey("move")
         
+        // Sets velocity to 0
+        physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.moveLocation = location
+        
         // If character is in combat idle, then moving changes state to combat move
         if self.state == .CombatIdle {self.state = .CombatMove}
             // If character is idle, then moving changes state to moving
@@ -147,25 +161,9 @@ class Character: SKSpriteNode {
         let distancex = abs(self.position.x - location.x)
         let distancey = abs(self.position.y - location.y)
         let distance = sqrt(distancex * distancex + distancey * distancey)
-        let duration = NSTimeInterval(distance / self.moveSpeed)
-        let move = SKAction.moveTo(location, duration: duration)
+        let factor = distance / moveSpeed
         
-        // Action after move to remove animation and switch state
-        let doneMove = (SKAction.runBlock({
-            self.removeActionForKey("walkingMan")
-            self.removeActionForKey("move")
-            
-            // If in combat, then after moving change to combat idle
-            if self.inCombat() {self.state = .CombatIdle}
-                
-            // If not in combat, then after moving change to idle
-            else {self.state = .Idle}
-            
-            // Resets texture to default
-            self.texture = SKTexture(imageNamed: "manWalkingAnimation_5")
-        }))
-        
-        let moveWithDone = SKAction.sequence([move, doneMove])
-        self.runAction(moveWithDone, withKey: "move")
+        physicsBody?.velocity = CGVector(dx: (location.x-self.position.x)/factor, dy: (location.y-self.position.y)/factor)
+
     }
 }

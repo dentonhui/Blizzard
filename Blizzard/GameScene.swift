@@ -30,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var target: SKSpriteNode!
     
     // Bounce limiter for contact
-    let bounceLimiter: CGFloat = 6
+    let bounceLimiter: CGFloat = 20
     
     // Max number of maps on one side. Number of total maps will be (max + 1)^2
     let max = 0
@@ -185,13 +185,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Updates which map the character is currently on
         currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
         
+        // Updates label for which map the character is currently on
+        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
+        
         // Check for game over
         if hero.damage >= hero.health {
             gameOver()
         }
         
-        // Updates label for which map the character is currently on
-        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
+//        // Set camera position to follow target horizontally, keep vertical locked 
+//        camera?.position = CGPoint(x:cameraTarget.position.x, y:cameraTarget.position.y)
+//        
+//        // Clamps camera
+//        camera?.position.x.clamp(0, 650*3*CGFloat(max+1))
+//        camera?.position.y.clamp(0, 650*3*CGFloat(max+1))
         
         // If the character either: has no actions and is not in combat, or is in combat and has no target, then switch to idle
         if (!hero.hasActions() && !hero.inCombat()) ||
@@ -205,7 +212,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if hero.fireCounter % hero.fireRate == 0 {hero.shoot()}
         }
         
-        //print(hero.state)
+        // Stops character when it finishes moving
+        if let moveLocation = hero.moveLocation {
+            if (moveLocation.x <= hero.position.x + 5 && moveLocation.x >= hero.position.x - 5) && (moveLocation.y <= hero.position.y + 5 && moveLocation.y >= hero.position.y - 5) {
+                
+                if hero.inCombat() {
+                    hero.state = .CombatIdle
+                }
+                else {
+                    hero.state = .Idle
+                }
+            }
+        }
+        
+        print(hero.state)
         
     }
     
@@ -256,17 +276,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Function for character contact with scenery
     func characterSceneryContact(man: Character, scenery: Scenery) {
         
-        man.removeActionForKey("move")
-        man.removeActionForKey("walkingMan")
-        man.removeActionForKey("bounce")
-        
-        let sceneryPosition = currentMap.convertPoint(scenery.position, toNode: self)
-        let x = (man.position.x - sceneryPosition.x)/3/bounceLimiter
-        let y = (man.position.y - sceneryPosition.y)/1.5/bounceLimiter
-        let vector = CGVectorMake(x, y)
-        
-        man.runAction(SKAction.moveBy(vector, duration: 0), withKey: "bounce")
-        
         if man.inCombat() {
             man.state = .CombatIdle
         }
@@ -286,15 +295,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         man.damaged()
         
         let enemyPosition = currentMap.convertPoint(enemy.position, toNode: self)
-        let x = (man.position.x - enemyPosition.x)/bounceLimiter
-        let y = (man.position.y - enemyPosition.y)/bounceLimiter
+        let x = (man.position.x - enemyPosition.x) / bounceLimiter
+        let y = (man.position.y - enemyPosition.y) / bounceLimiter
         let vector = CGVectorMake(x, y)
         
-        man.removeActionForKey("move")
-        man.removeActionForKey("walkingMan")
-        man.runAction(SKAction.moveBy(vector, duration: 0))
-        target.removeFromParent()
         man.state = .Idle
+        man.physicsBody?.applyImpulse(vector)
+        target.removeFromParent()
         
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)

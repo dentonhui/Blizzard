@@ -99,7 +99,7 @@ class Enemy: SKSpriteNode {
         physicsBody = SKPhysicsBody(rectangleOfSize: texture.size())
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
-        physicsBody?.dynamic = true
+        physicsBody?.dynamic = false
         physicsBody?.categoryBitMask = 4
         physicsBody?.collisionBitMask = 1
         physicsBody?.contactTestBitMask = 1

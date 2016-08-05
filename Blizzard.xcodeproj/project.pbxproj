@@ -49,6 +49,7 @@
 		ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */; };
 		ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */; };
 		ADDCA5D21D35B0AD00ACBCCD /* InventoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */; };
+		ADEDA0361D55135F00D4A5D1 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEDA0351D55135F00D4A5D1 /* CGFloat+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		ADDCA5C91D3596AA00ACBCCD /* InventoryMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InventoryMenu.sks; sourceTree = "<group>"; };
 		ADDCA5CD1D359D0900ACBCCD /* GameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 		ADDCA5D11D35B0AD00ACBCCD /* InventoryMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryMenu.swift; sourceTree = "<group>"; };
+		ADEDA0351D55135F00D4A5D1 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				ADDCA58D1D34645200ACBCCD /* GameScene.sks */,
 				ADDCA58F1D34645200ACBCCD /* GameScene.swift */,
 				ADDCA5911D34645200ACBCCD /* GameViewController.swift */,
+				ADEDA0351D55135F00D4A5D1 /* CGFloat+Extensions.swift */,
 				ADDCA5931D34645200ACBCCD /* Main.storyboard */,
 				ADDCA5981D34645200ACBCCD /* LaunchScreen.storyboard */,
 				ADDCA59B1D34645200ACBCCD /* Info.plist */,
@@ -404,6 +407,7 @@
 			files = (
 				AD0FC87E1D38059E002DCE74 /* Map.swift in Sources */,
 				ADDCA5CE1D359D0900ACBCCD /* GameMenu.swift in Sources */,
+				ADEDA0361D55135F00D4A5D1 /* CGFloat+Extensions.swift in Sources */,
 				ADDCA5901D34645200ACBCCD /* GameScene.swift in Sources */,
 				AD7B303D1D418ADC00322E5B /* Projectile.swift in Sources */,
 				AD51F8CF1D3E933B007132E8 /* Enemy.swift in Sources */,
