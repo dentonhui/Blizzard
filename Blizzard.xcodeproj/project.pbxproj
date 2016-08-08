@@ -317,7 +317,7 @@
 				TargetAttributes = {
 					ADDCA5871D34645200ACBCCD = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 588DBQT569;
+						DevelopmentTeam = HN5YRGKER3;
 					};
 					ADDCA59F1D34645200ACBCCD = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -566,9 +566,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Blizzard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.Blizzard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.Blizzard2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -580,9 +581,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Blizzard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.Blizzard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.Blizzard2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

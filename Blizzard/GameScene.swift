@@ -166,7 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if distanceMoved.x > 650 || distanceMoved.y > 650 {
                     distanceMoved = CGPointMake(0, 0)
                     checkMap()
-                }                
+                }
             }
         }
     }

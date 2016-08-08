@@ -44,7 +44,7 @@ class Map: SKSpriteNode {
             
         case (x: 0, y: 0):
             
-            for i in 0...5 {
+            for i in 0...10 {
                 let position = CGPointMake(200 + 64*CGFloat(i), 200)
                 let enemy = Enemy(imageNamed: "fox", sPosition: position)
                 self.addChild(enemy)
