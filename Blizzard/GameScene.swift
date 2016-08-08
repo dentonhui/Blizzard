@@ -47,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(hero)
         self.camera = cam
         self.addChild(self.camera!)
+        camera?.position = hero.position
         
         // Set up target indicator
         target = SKSpriteNode(imageNamed: "targetSmall")
@@ -146,11 +147,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     hero.state = .CombatIdle}
             }
                 
-            // Removes a target and switches to idle
+            // Removes a target and switches to idle or moving
             else if touchedNode.name == "target" {
                 target.removeFromParent()
                 hero.targeted = nil
-                hero.state = .Idle
+                if hero.state == .CombatMove {
+                    hero.state = .Moving
+                }
+                else if hero.state == .CombatIdle {
+                    hero.state = .Idle
+                }
             }
               
             // Moves character
@@ -185,20 +191,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOver()
         }
         
-        // Moves camera to character
-        camera?.position = hero.position
-
-        // Clamps camera
-        camera?.position.x.clamp(self.frame.size.width/2, 650*3*CGFloat(max+1) - self.frame.size.width/2)
-        camera?.position.y.clamp(self.frame.size.height/2, 650*3*CGFloat(max+1) - self.frame.size.height/2)
-        
         // If the character either: has no actions and is not in combat, or is in combat and has no target, then switch to idle
         if (!hero.hasActions() && !hero.inCombat()) ||
             (hero.inCombat() && hero.targeted == nil) {
             hero.state = .Idle
         }
         // If the character is in combat, increment firecounter and shoot
-        else if hero.inCombat() {
+        else if hero.inCombat() && hero.targeted != nil {
             hero.fireCounter += 1
             
             if hero.fireCounter % hero.fireRate == 0 {hero.shoot()}
@@ -218,6 +217,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         //print(hero.state)
+        
+    }
+    
+    override func didSimulatePhysics() {
+        
+        // Moves camera to character
+        camera?.position = hero.position
+        
+        // Clamps camera
+        camera?.position.x.clamp(self.frame.size.width/2, 650*3*CGFloat(max+1) - self.frame.size.width/2)
+        camera?.position.y.clamp(self.frame.size.height/2, 650*3*CGFloat(max+1) - self.frame.size.height/2)
         
     }
     

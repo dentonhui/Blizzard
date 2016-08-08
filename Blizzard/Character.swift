@@ -137,7 +137,6 @@ class Character: SKSpriteNode {
         self.removeActionForKey("move")
         
         // Sets velocity to 0
-        physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.moveLocation = location
         
         // If character is in combat idle, then moving changes state to combat move
