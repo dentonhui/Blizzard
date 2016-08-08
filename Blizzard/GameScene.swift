@@ -203,19 +203,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if hero.fireCounter % hero.fireRate == 0 {hero.shoot()}
         }
         
-        // Stops character when it finishes moving
-        if let moveLocation = hero.moveLocation {
-            if (moveLocation.x <= hero.position.x + 5 && moveLocation.x >= hero.position.x - 5) && (moveLocation.y <= hero.position.y + 5 && moveLocation.y >= hero.position.y - 5) {
-                
-                if hero.inCombat() {
-                    hero.state = .CombatIdle
-                }
-                else {
-                    hero.state = .Idle
-                }
-            }
-        }
-        
         //print(hero.state)
         
     }
@@ -228,6 +215,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Clamps camera
         camera?.position.x.clamp(self.frame.size.width/2, 650*3*CGFloat(max+1) - self.frame.size.width/2)
         camera?.position.y.clamp(self.frame.size.height/2, 650*3*CGFloat(max+1) - self.frame.size.height/2)
+        
+        // Stops character when it finishes moving
+        if let moveLocation = hero.moveLocation {
+            if (moveLocation.x <= hero.position.x + 5 && moveLocation.x >= hero.position.x - 5) && (moveLocation.y <= hero.position.y + 5 && moveLocation.y >= hero.position.y - 5) {
+                
+                if hero.inCombat() {
+                    hero.state = .CombatIdle
+                }
+                else {
+                    hero.state = .Idle
+                }
+            }
+        }
         
     }
     

@@ -49,6 +49,7 @@ class Map: SKSpriteNode {
                 let enemy = Enemy(imageNamed: "fox", sPosition: position)
                 self.addChild(enemy)
                 enemy.state = .IdleMove
+                enemy.zPosition = CGFloat(i + 1)
             }
             
             var tree: Scenery

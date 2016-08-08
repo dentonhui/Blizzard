@@ -23,7 +23,7 @@ class Scenery: SKSpriteNode {
         if filename == "forest" {
             let size2 = CGSize(width: size.width/1.05, height: size.height/1.25)
             physicsBody = SKPhysicsBody(rectangleOfSize: size2)
-            self.zPosition = 11
+            self.zPosition = 20
         }
         
         physicsBody?.affectedByGravity = false
