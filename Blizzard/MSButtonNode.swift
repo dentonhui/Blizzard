@@ -62,5 +62,4 @@ class MSButtonNode: SKSpriteNode {
         selectedHandler()
         state = .Active
     }
-    
 }

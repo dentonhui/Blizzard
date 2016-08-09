@@ -13,6 +13,7 @@ class Scenery: SKSpriteNode {
     
     // Sets up scenery object by taking in a filename and make an object of that file's texture
     init(filename: String) {
+        
         let texture = SKTexture(imageNamed: filename)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
@@ -35,7 +36,6 @@ class Scenery: SKSpriteNode {
         anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
         self.name = "scenery"
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

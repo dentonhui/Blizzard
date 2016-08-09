@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Bounce limiter for contact
     let bounceLimiter: CGFloat = 20
     
-    // Max number of maps on one side. Number of total maps will be (max + 1)^2
+    // Max number of maps + 1 on one side. Number of total maps will be (max + 1)^2
     let max = 0
     
     override func didMoveToView(view: SKView) {
@@ -121,7 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     addChild(mapGrid[x][y])
                     mapGrid[x][y].inScene = true
                     print("added \(x), \(y)")
-                    
                 }
             }
         }
@@ -228,7 +227,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -307,7 +305,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)
-
     }
     
     // Function for projectile contact

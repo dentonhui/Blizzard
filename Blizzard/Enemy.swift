@@ -89,6 +89,7 @@ class Enemy: SKSpriteNode {
     
     // Sets up the enemy
     init(imageNamed: String, sPosition: CGPoint) {
+        
         let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
@@ -124,7 +125,6 @@ class Enemy: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
-    
     // Adds an epty node to the front of the enemy which triggers combat if the hero collides with it
     func addDetect() {
         
@@ -151,12 +151,14 @@ class Enemy: SKSpriteNode {
     
     // Function to return a boolean for whether or not the hero is in combat
     func inCombat()-> Bool {
+        
         if self.state == .Combat || self.state == .CombatIdle {return true}
         else {return false}
     }
     
     // Function to enter combat
     func aggro(man: Character) {
+        
         if self.inCombat() == false {
             self.removeActionForKey("move")
             self.removeActionForKey("walkingFox")
@@ -167,6 +169,7 @@ class Enemy: SKSpriteNode {
     
     // Function to animate character
     func walkingFox() {
+        
         var frameSpeed: NSTimeInterval = 0.2
         
         if self.state == .Combat {frameSpeed = 0.05}
@@ -226,7 +229,6 @@ class Enemy: SKSpriteNode {
         let distance = sqrt(distancex * distancex + distancey * distancey)
         let duration = NSTimeInterval(distance / speed)
         let move = SKAction.moveTo(location, duration: duration)
-
         
         // Action after move to remove animation and switch state
         let doneMove = (SKAction.runBlock({
@@ -243,11 +245,9 @@ class Enemy: SKSpriteNode {
             if self.state == .Combat {self.state = .CombatIdle}
             
             self.detectNode.position = CGPointMake(-self.size.width, 0)
-            
         }))
         
         let moveWithDone = SKAction.sequence([move, doneMove])
         self.runAction(moveWithDone, withKey: "move")
     }
-    
 }

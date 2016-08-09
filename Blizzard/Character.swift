@@ -127,6 +127,7 @@ class Character: SKSpriteNode {
     
     // Function to animate character
     func walkingMan() {
+        
         self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(manWalkingFrames, timePerFrame: 0.2, resize: false, restore: false)), withKey: "walkingMan")
     }
     
@@ -163,6 +164,5 @@ class Character: SKSpriteNode {
         let factor = distance / moveSpeed
         
         physicsBody?.velocity = CGVector(dx: (location.x-self.position.x)/factor, dy: (location.y-self.position.y)/factor)
-
     }
 }

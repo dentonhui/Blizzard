@@ -19,6 +19,7 @@ class Projectile: SKSpriteNode {
         
     // Ses up projectile
     init(imageNamed: String) {
+        
         let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
@@ -32,7 +33,6 @@ class Projectile: SKSpriteNode {
         self.anchorPoint = CGPoint(x: 0.5,y: 0.5)
         
         self.name = "projectile"
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,7 +61,5 @@ class Projectile: SKSpriteNode {
         let remove = SKAction.removeFromParent()
         let sequence = SKAction.sequence([fire, remove])
         self.runAction(sequence)
-        
-        
     }
 }
