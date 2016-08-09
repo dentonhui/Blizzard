@@ -203,7 +203,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         //print(hero.state)
-        
     }
     
     override func didSimulatePhysics() {
