@@ -39,7 +39,5 @@ class GameOver: SKScene {
             /* Start game scene */
             skView.presentScene(scene)
         }
-        
     }
-
 }

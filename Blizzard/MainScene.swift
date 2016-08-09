@@ -40,6 +40,17 @@ class MainScene: SKScene {
             skView.presentScene(scene)
         }
         
+        // Snow particle effect
+        /* Load our particle effect */
+        let particles = SKEmitterNode(fileNamed: "Snow")!
+        
+        particles.position = CGPointMake(284, 320)
+        
+        /* Restrict total particles to reduce runtime of particle */
+        //particles.numParticlesToEmit = 25
+        
+        /* Add particles to scene */
+        addChild(particles)
+
     }
-    
 }
