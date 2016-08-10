@@ -251,7 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             // Enemy contact
             else if let enemy = nodeB as? Enemy {
-                characterEnemyConatact(man, enemy: enemy)
+                characterEnemyContact(man, enemy: enemy)
             }
             // Enemy detection contact
             else if nodeB.name == "detect" {
@@ -280,20 +280,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // Function for character contact with enemy
-    func characterEnemyConatact(man: Character, enemy: Enemy) {
-        
-        enemy.aggro(man)
-        enemy.removeAllActions()
-        enemy.state = .CombatIdle
-        
-        man.damage += enemy.damageDealt
-        man.damaged()
+    func characterEnemyContact(man: Character, enemy: Enemy) {
         
         let enemyPosition = currentMap.convertPoint(enemy.position, toNode: self)
         let x = (man.position.x - enemyPosition.x) / bounceLimiter
         let y = (man.position.y - enemyPosition.y) / bounceLimiter
         let vector = CGVectorMake(x, y)
-                
+        
+        // Aggros player character
+        enemy.aggro(man)
+        enemy.removeAllActions()
+        // Pushes enemy back a bit to prevent clipping
+        enemy.runAction(SKAction.moveByX(vector.dx * -1.5, y: vector.dy * -1.5, duration: 0))
+        enemy.state = .CombatIdle
+        
+        // Damages character and brings it out of combat (stops shooting)
+        man.damage += enemy.damageDealt
+        man.damaged()
         man.state = .Idle
         man.physicsBody?.applyImpulse(vector)
         target.removeFromParent()
