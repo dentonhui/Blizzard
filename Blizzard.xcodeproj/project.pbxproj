@@ -18,7 +18,7 @@
 		ADD0BB8D1D5A7BFD00ED6410 /* assets.atlas in Resources */ = {isa = PBXBuildFile; fileRef = ADD0BB8C1D5A7BFD00ED6410 /* assets.atlas */; };
 		ADD0BB911D5A7C5300ED6410 /* backgroundTile.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD0BB901D5A7C5300ED6410 /* backgroundTile.png */; };
 		ADD0BB941D5A8B6600ED6410 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADD0BB921D5A8B6600ED6410 /* Snow.sks */; };
-		ADD0BB951D5A8B6600ED6410 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD0BB931D5A8B6600ED6410 /* spark.png */; };
+		ADD0BB9F1D5A9B3A00ED6410 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD0BB9D1D5A9B3A00ED6410 /* spark.png */; };
 		ADDCA58C1D34645200ACBCCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */; };
 		ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADDCA58D1D34645200ACBCCD /* GameScene.sks */; };
 		ADDCA5921D34645200ACBCCD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDCA5911D34645200ACBCCD /* GameViewController.swift */; };
@@ -64,7 +64,7 @@
 		ADD0BB8C1D5A7BFD00ED6410 /* assets.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = assets.atlas; sourceTree = "<group>"; };
 		ADD0BB901D5A7C5300ED6410 /* backgroundTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundTile.png; sourceTree = "<group>"; };
 		ADD0BB921D5A8B6600ED6410 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
-		ADD0BB931D5A8B6600ED6410 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		ADD0BB9D1D5A9B3A00ED6410 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		ADDCA5881D34645200ACBCCD /* Frozen Tundra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frozen Tundra.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDCA58B1D34645200ACBCCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADDCA58D1D34645200ACBCCD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				AD2815EC1D3EC971005EB5CE /* Scenery.swift */,
 				AD7B303C1D418ADC00322E5B /* Projectile.swift */,
 				ADD0BB921D5A8B6600ED6410 /* Snow.sks */,
-				ADD0BB931D5A8B6600ED6410 /* spark.png */,
+				ADD0BB9D1D5A9B3A00ED6410 /* spark.png */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -310,11 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADDCA58E1D34645200ACBCCD /* GameScene.sks in Resources */,
-				ADD0BB951D5A8B6600ED6410 /* spark.png in Resources */,
 				AD0A10371D4BC25500FF8A13 /* GameOver.sks in Resources */,
 				ADD0BB941D5A8B6600ED6410 /* Snow.sks in Resources */,
 				ADD0BB8D1D5A7BFD00ED6410 /* assets.atlas in Resources */,
 				ADD0BB911D5A7C5300ED6410 /* backgroundTile.png in Resources */,
+				ADD0BB9F1D5A9B3A00ED6410 /* spark.png in Resources */,
 				ADDCA5CA1D3596AA00ACBCCD /* InventoryMenu.sks in Resources */,
 				ADDCA59A1D34645200ACBCCD /* LaunchScreen.storyboard in Resources */,
 				ADDCA5C41D3590AF00ACBCCD /* MainScene.sks in Resources */,

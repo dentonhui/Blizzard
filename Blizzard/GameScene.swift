@@ -66,14 +66,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 map.inScene = false
                 map.zPosition = -1
                 
-                if y == 0 {
-                    map.position.x = hero.position.x
-                    map.position.y = hero.position.y + CGFloat(650 * 3 * x)
-                }
-                else {
-                    map.position.x = hero.position.x + CGFloat(650 * 3 * y)
-                    map.position.y = hero.position.y + CGFloat(650 * 3 * x)
-                }
+                map.position.x = CGFloat(325 * 3 + 650 * 3 * y)
+                map.position.y = CGFloat(325 * 3 + 650 * 3 * x)
                 
                 map.number.x = x
                 map.number.y = y
@@ -86,15 +80,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        // Updates which map the character is currently on
+        currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
+        
         // Sets up inital map tile
-        mapGrid[0][0].inScene = true
-        self.addChild(mapGrid[0][0])
-        currentMap = mapGrid[0][0]
+        currentMap.inScene = true
+        self.addChild(currentMap)
         
         // Sets up map indicator
         myLabel = SKLabelNode(fontNamed: "Courier")
         myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
-        myLabel.fontSize = 45
+        myLabel.fontSize = 25
         myLabel.zPosition = 10
         //hero.addChild(myLabel)
     }

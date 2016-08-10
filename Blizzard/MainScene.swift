@@ -45,12 +45,12 @@ class MainScene: SKScene {
         let particles = SKEmitterNode(fileNamed: "Snow")!
         
         particles.position = CGPointMake(284, 320)
+        particles.advanceSimulationTime(3)
         
         /* Restrict total particles to reduce runtime of particle */
         //particles.numParticlesToEmit = 25
         
         /* Add particles to scene */
         addChild(particles)
-
     }
 }
