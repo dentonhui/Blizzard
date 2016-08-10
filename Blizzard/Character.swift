@@ -134,9 +134,6 @@ class Character: SKSpriteNode {
     // A function to move the hero character at a constant speed
     func move (location: CGPoint) {
         
-        // Checks if the character has a move action and if so, removes it
-        self.removeActionForKey("move")
-        
         // Sets velocity to 0
         self.moveLocation = location
         

@@ -293,7 +293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let x = (man.position.x - enemyPosition.x) / bounceLimiter
         let y = (man.position.y - enemyPosition.y) / bounceLimiter
         let vector = CGVectorMake(x, y)
-        
+                
         man.state = .Idle
         man.physicsBody?.applyImpulse(vector)
         target.removeFromParent()
