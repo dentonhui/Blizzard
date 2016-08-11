@@ -29,6 +29,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Target indicator
     var target: SKSpriteNode!
     
+    // Healthbar
+    let healthBorder = SKSpriteNode(imageNamed: "healthBorder")
+    var healthBar = SKSpriteNode(imageNamed: "healthBar")
+    
     // Bounce limiter for contact
     let bounceLimiter: CGFloat = 20
     
@@ -93,6 +97,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         myLabel.fontSize = 25
         myLabel.zPosition = 10
         //hero.addChild(myLabel)
+        
+        // Sets up health bar
+        healthBar.anchorPoint = CGPointMake(0, 0.5)
+        healthBar.position = CGPointMake(-30, 0)
+        healthBorder.zPosition = 2
+        healthBar.zPosition = 3
+        //camera?.addChild(healthBorder)
+        //camera?.addChild(healthBar)
     }
     
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
@@ -294,12 +306,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.runAction(SKAction.moveByX(vector.dx * -1.5, y: vector.dy * -1.5, duration: 0))
         enemy.state = .CombatIdle
         
-        // Damages character and brings it out of combat (stops shooting)
+        // Damages character and brings it out of combat (stops shooting and removes target)
+        target.removeFromParent()
+        man.targeted = nil
         man.damage += enemy.damageDealt
         man.damaged()
         man.state = .Idle
         man.physicsBody?.applyImpulse(vector)
-        target.removeFromParent()
         
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)
