@@ -100,11 +100,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Sets up health bar
         healthBar.anchorPoint = CGPointMake(0, 0.5)
-        healthBar.position = CGPointMake(-30, 0)
+        healthBorder.position = CGPointMake(0, 30)
+        healthBar.position = CGPointMake(healthBorder.position.x-30, healthBorder.position.y)
         healthBorder.zPosition = 2
         healthBar.zPosition = 3
-        //camera?.addChild(healthBorder)
-        //camera?.addChild(healthBar)
+        camera?.addChild(healthBorder)
+        camera?.addChild(healthBar)
     }
     
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
@@ -313,6 +314,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         man.damaged()
         man.state = .Idle
         man.physicsBody?.applyImpulse(vector)
+        
+        // Update health bar
+        let manHealth = CGFloat(man.health)
+        let manDamage = CGFloat(man.damage)
+        let health = (manHealth-manDamage)/manHealth
+        healthBar.xScale = health
         
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)
