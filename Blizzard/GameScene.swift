@@ -26,6 +26,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Map coordinate display
     var myLabel: SKLabelNode!
     
+    // Wave display
+    var waveLabel: SKLabelNode!
+    var waveNumber = 0 {
+        didSet {
+            waveLabel.text = "Wave: \(waveNumber)"
+            generateWave()
+        }
+    }
+    
+    // Timing stuff
+    let deltaTime: CFTimeInterval = 9
+    var lastTime: CFTimeInterval = 0
+    
     // Target indicator
     var target: SKSpriteNode!
     
@@ -102,10 +115,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         healthBar.anchorPoint = CGPointMake(0, 0.5)
         healthBorder.position = CGPointMake(0, 30)
         healthBar.position = CGPointMake(healthBorder.position.x-30, healthBorder.position.y)
-        healthBorder.zPosition = 2
-        healthBar.zPosition = 3
-        camera?.addChild(healthBorder)
-        camera?.addChild(healthBar)
+        healthBorder.zPosition = 1000
+        healthBar.zPosition = 1001
+        hero.addChild(healthBorder)
+        hero.addChild(healthBar)
+        
+        // Set up wave label
+        waveLabel = SKLabelNode(fontNamed: "Courier")
+        waveLabel.text = "Wave: \(waveNumber)"
+        waveLabel.zPosition = 1002
+        waveLabel.position = CGPointMake(0, 120)
+        camera?.addChild(waveLabel)
+        
+        //Sets high score; if no high score exists then on is created with the value of 0
+        if NSUserDefaults.standardUserDefaults().objectForKey("highestWave") == nil {
+            NSUserDefaults.standardUserDefaults().setObject(0, forKey: "highestWave")
+        }
     }
     
     // Checks if 8 maps around current map are added. If not, adds them. Also removes maps that are too far away.
@@ -181,6 +206,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     distanceMoved = CGPointMake(0, 0)
                     checkMap()
                 }
+                
+                // Prevents health bar from flipping
+                if hero.direction == .Left {
+                    healthBar.xScale = abs(healthBar.xScale) * -1
+                    healthBar.position = CGPointMake(healthBorder.position.x+30, healthBorder.position.y)
+                    healthBorder.xScale = abs(healthBorder.xScale) * -1
+                }
+                else if hero.direction == .Right {
+                    healthBar.xScale = abs(healthBar.xScale)
+                    healthBar.position = CGPointMake(healthBorder.position.x-30, healthBorder.position.y)
+                    healthBorder.xScale = abs(healthBorder.xScale)
+                }
             }
         }
     }
@@ -188,11 +225,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         
-        // Updates which map the character is currently on
-        currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
-        
-        // Updates label for which map the character is currently on
-        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
+        if lastTime + deltaTime < currentTime {
+            waveNumber += 1
+            lastTime = currentTime
+        }
         
         // Check for game over
         if hero.damage >= hero.health {
@@ -212,9 +248,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         //print(hero.state)
+        //print(hero.position)
     }
     
     override func didSimulatePhysics() {
+        
+        // Updates which map the character is currently on
+        currentMap = mapGrid[Int(hero.position.y / (650 * 3 + 1))][Int(hero.position.x / (650 * 3 + 1))]
+        
+        // Updates label for which map the character is currently on
+        myLabel.text = "\(currentMap.number.x), \(currentMap.number.y)"
         
         // Moves camera to character
         camera?.position = hero.position
@@ -268,8 +311,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             // Enemy detection contact
             else if nodeB.name == "detect" {
-                let enemy = nodeB.parent as! Enemy
-                enemy.aggro(man)
+                let enemy = nodeB.parent as? Enemy
+                if enemy == nil {return}
+                enemy!.aggro(man)
             }
         }
         
@@ -319,10 +363,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let manHealth = CGFloat(man.health)
         let manDamage = CGFloat(man.damage)
         let health = (manHealth-manDamage)/manHealth
-        healthBar.xScale = health
+        
+        // Prevents health bar from flipping
+        if hero.direction == .Right {
+            healthBar.xScale = health
+        }
+        else if hero.direction == .Left {
+            healthBar.xScale = -health
+        }
         
         let restore = SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.1)
         enemy.runAction(restore)
+        
     }
     
     // Function for projectile contact
@@ -330,10 +382,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         enemy.targeted = hero
         if !enemy.inCombat() {enemy.state = .Combat}
-        enemy.damage += 1
+        enemy.damage += hero.damageDealt
         enemy.damaged()
         projectile.removeFromParent()
         if hero.targeted != nil && enemy.damage == enemy.health && enemy == hero.targeted! {hero.targeted = nil}
+    }
+    
+    // Wave generator
+    func generateWave() {
+        let numberOfEnemies = waveNumber*2 + 5
+        for i in 1...numberOfEnemies {
+            // Random location
+            let randX = CGFloat(arc4random_uniform(600*3))
+            let randY = CGFloat(arc4random_uniform(600*3))
+            let position = CGPointMake(randX, randY)
+            
+            let enemy = Enemy(imageNamed: "fox", sPosition: position)
+            enemy.moveSpeed += CGFloat(waveNumber) + CGFloat(arc4random_uniform(10))
+            
+            currentMap.addChild(enemy)
+            enemy.aggro(hero)
+            enemy.zPosition = CGFloat(i + 1)
+        }
     }
     
     // Shows game over screen
@@ -341,6 +411,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         /* Grab reference to our SpriteKit view */
         let skView = self.view as SKView!
+        
+        // Labels for Game Over
+        NSUserDefaults.standardUserDefaults().setObject(waveNumber, forKey: "wavesSurvived")
+        
+        let highestWave = Int(NSUserDefaults.standardUserDefaults().valueForKey("highestWave") as! NSNumber)
+        if highestWave < waveNumber {
+            NSUserDefaults.standardUserDefaults().setObject(waveNumber, forKey: "highestWave")
+        }
         
         /* Load Game scene */
         let scene = GameOver(fileNamed:"GameOver") as GameOver!

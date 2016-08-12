@@ -14,10 +14,21 @@ class GameOver: SKScene {
     /* UI Connections */
     var buttonRestart: MSButtonNode!
     
+    // Waves survived
+    var waveLabel: SKLabelNode!
+    var wavesSurvived = NSUserDefaults.standardUserDefaults().objectForKey("wavesSurvived")!
+    
+    var highWave: SKLabelNode!
+    var highestWave = NSUserDefaults.standardUserDefaults().objectForKey("highestWave")!
+    
     override func didMoveToView(view: SKView) {
         
         /* Set UI connections */
         buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        waveLabel = self.childNodeWithName("waveLabel") as! SKLabelNode
+        waveLabel.text = "Waves Survived: \(wavesSurvived)"
+        highWave = self.childNodeWithName("highWave") as! SKLabelNode
+        highWave.text = "Highest Wave Survived: \(highestWave)"
         
         /* Setup play button selection handler */
         buttonRestart.selectedHandler = {

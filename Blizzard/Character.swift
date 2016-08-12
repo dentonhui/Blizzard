@@ -18,7 +18,7 @@ class Character: SKSpriteNode {
     var moveLocation: CGPoint!
     
     // Controls the fire rate
-    let fireRate = 50
+    let fireRate = 10
     var fireCounter = 0
     
     // Variable for character health
@@ -26,6 +26,9 @@ class Character: SKSpriteNode {
     
     // A damage counter to keep track of the character's health
     var damage = 0
+    
+    // Variable for how much damage character deals to enemies
+    var damageDealt = 1
     
     // Switches character sprite's visual orientation whenever the orientaiton in code changes
     enum Orientation {

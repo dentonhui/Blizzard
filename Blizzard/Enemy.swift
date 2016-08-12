@@ -24,7 +24,7 @@ class Enemy: SKSpriteNode {
     var foxWalkingFrames: [SKTexture]!
     
     // Variable for enemy health
-    let health = 10
+    let health = 3
     
     // Variable for enemy damage dealt
     let damageDealt = 5
